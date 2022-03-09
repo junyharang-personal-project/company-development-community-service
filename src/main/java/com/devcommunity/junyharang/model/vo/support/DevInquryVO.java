@@ -1,9 +1,7 @@
 package com.devcommunity.junyharang.model.vo.support;
 
 import com.devcommunity.junyharang.model.vo.common.CommonVO;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * Q&A 게시판 Value Object
@@ -18,7 +16,7 @@ import lombok.ToString;
  * @see <a href=""></a>
  */
 
-@Getter @Builder @ToString
+@Data
 public class DevInquryVO extends CommonVO {
 
     private int InqrySn;

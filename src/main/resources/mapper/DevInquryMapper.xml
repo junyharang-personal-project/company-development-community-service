@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devcommunity.junyharang.mapper.support.DevInquryMapper">
+
+    <!-- Q&A 게시글 등록 -->
+<!--    <insert id="devInquryInsert" parameterType="com.devcommunity.junyharang.model.vo.support.DevInquryVO">-->
+<!--        <![CDATA[-->
+<!--        INSERT INTO tb_com_inqry (-->
+<!--            INQRY_SJ,-->
+<!--            INQRY_CN,-->
+<!--            FILE_SN,-->
+<!--            CREAT_DT,-->
+<!--            CRTR_SN,-->
+<!--            UPDT_DT,-->
+<!--            UPDUSR_SN,-->
+<!--            ANSWER_AT,-->
+<!--            SECRET_AT,-->
+<!--            INQRY_USER_SN-->
+<!--        ) VALUES (-->
+<!--         #{inqrysj},-->
+<!--         #{inqryCn}-->
+<!--         #{fileSn},-->
+<!--         NOW(),-->
+<!--         #{crtSn},-->
+<!--         NOW(),-->
+<!--         #{updusrSn},-->
+<!--         'N',-->
+<!--         #{secretAt},-->
+<!--         #{inqryUserSn}-->
+<!--        )-->
+<!--        ]]>-->
+<!--	</insert>-->
+
+    <!-- Q&A 목록 조회 -->
+
+
+
+
+<!--    &lt;!&ndash; Q&A 게시글 수정 &ndash;&gt;-->
+<!--    <update id="devInquryUpdate" parameterType="com.devcommunity.junyharang.model.vo.support.DevInquryVO">-->
+<!--        UPDATE tb_com_inqry-->
+<!--            SET INQRY_SJ    =   #{inqrySj},-->
+<!--                INQRY_CN    =   #{inqryCn},-->
+<!--                FILE_SN     =   #{fileSn},-->
+<!--                UPDT_DT     =   NOW(),-->
+<!--                UPDUSR_SN   =   #{updusrSn},-->
+<!--                SECRET_AT   =   #{secretAt}-->
+<!--            WHERE   INQRY_SN = #{inqrySn}-->
+<!--    </update>-->
+
+</mapper>
