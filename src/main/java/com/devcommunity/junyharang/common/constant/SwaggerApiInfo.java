@@ -20,6 +20,7 @@ public interface SwaggerApiInfo {
     String GET_POSTS_LIST = "게시글 목록 조회";
     String GET_POSTS_ONE_THING = "게시글 단건 조회";
     String WRITE_POSTS = "게시글 등록";
+    String WRITE_UPDATE_POSTS = "게시글 등록/수정";
     String DELETE_POSTS = "게시글 삭제";
     String MODIFY_POSTS = "게시글 수정";
     String POST_LIKE = "게시글 좋아요";
