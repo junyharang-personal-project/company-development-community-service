@@ -63,8 +63,11 @@ import java.util.Map;
      * @see ""
      */
 
+    // TODO - 목록 조회 시 VO에 Data를 받으므로, 불필요한 Data가 전달 될 수 있으며, 검색이 함께 이뤄지는 Logic으로 분리 및 Refactoring 예정
+
     @ResponseBody
-    @GetMapping("/devInquryList") public Object devInquryList(@RequestBody DevInquryVO devInquryVO) throws Exception {
+    @GetMapping("/devInquryList")
+    public Object devInquryList(@RequestBody DevInquryVO devInquryVO) throws Exception {
 
         log.info("DevInquryController의 devInquryList(@RequestBody DevInquryVO devInquryVO)가 호출 되었습니다!");
 
@@ -74,7 +77,7 @@ import java.util.Map;
         List<HashMap<String, Object>> devInquryList = devInquryService.devInquryList(devInquryVO);
 
         log.info("개발자 문의 게시글 목록을 Count하기 위해 devInquryService.devInquryListCnt(devInquryVO)를 호출 하겠습니다!");
-        int devInquryListCnt = devInquryService.devInquryListCnt(devInquryVO);
+        int devInquryListCnt = devInquryService.devInquryReadhitCount(devInquryVO);
 
         log.info("각 Service에서 조회된 결과값을 result Map에 담아 반환 하겠습니다!");
         result.put("devInquryList", devInquryList);

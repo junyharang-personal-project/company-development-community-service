@@ -32,7 +32,29 @@
 <!--	</insert>-->
 
     <!-- Q&A 목록 조회 -->
-
+    <select id="devInquryList" parameterType="com.devcommunity.junyharang.model.vo.support.DevInquryVO" resultType="com.devcommunity.junyharang.model.vo.support.DevInquryVO">
+        select row_number() over(order by i.INQRY_SN asc) as INQRY_INDEX , i.INQRY_SN, i.INQRY_USER_SN , i.FILE_SN , i.INQRY_CN , i.INQRY_SJ , i.SECRET_AT , i.ANSWER_AT , i.ANSWER_CN , i.ANSWER_USER_SN , i.ANSWER_DT , i.CREAT_DT , i.UPDT_DT , i.UPDUSR_SN, u.USER_ID
+        from tb_com_inqry i inner join tb_user u
+        on i.INQRY_USER_SN = u.user_sn
+        where 1=1
+        <if test=' srchType neq null and srchType neq "" '>
+            <choose>
+                <when test="srchType eq '1'.toString()">
+                    and INQRY_SJ like CONCAT('%', #{srchWord}, '%')
+                </when>
+                <when test="srchType eq '2'.toString()">
+                    and INQRY_CN like CONCAT('%', #{srchWord}, '%')
+                </when>
+                <when test="srchType eq '3'.toString()">
+                    and u.USER_ID like CONCAT('%', #{srchWord}, '%')
+                </when>
+            </choose>
+        </if>
+        order by INQRY_SN desc
+        <if test=' pageStart neq null and perPageNum neq null '>
+            LIMIT #{pageStart}, #{perPageNum}
+        </if>
+    </select>
 
 
 
@@ -47,5 +69,27 @@
 <!--                SECRET_AT   =   #{secretAt}-->
 <!--            WHERE   INQRY_SN = #{inqrySn}-->
 <!--    </update>-->
+
+    <!--  Q&A 조회수 카운트-->
+    <select id="devInquryReadhitCount" parameterType="com.devcommunity.junyharang.model.vo.support.DevInquryVO" resultType="Integer">
+        select COUNT(*) AS COUNT
+        from tb_com_inqry i
+        inner join tb_user u
+        on i.INQRY_USER_SN = u.user_sn
+        where 1=1
+        <if test=' srchType neq null and srchType neq "" '>
+            <choose>
+                <when test="srchType eq '1'.toString()">
+                    and INQRY_SJ like CONCAT('%', #{srchWord}, '%')
+                </when>
+                <when test="srchType eq '2'.toString()">
+                    and INQRY_CN like CONCAT('%', #{srchWord}, '%')
+                </when>
+                <when test="srchType eq '3'.toString()">
+                    and u.USER_ID like CONCAT('%', #{srchWord}, '%')
+                </when>
+            </choose>
+        </if>
+    </select>
 
 </mapper>
