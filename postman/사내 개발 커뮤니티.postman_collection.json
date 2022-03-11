@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "508cce3e-01cd-4ff3-9568-df85f793e6b7",
+		"name": "사내 개발 커뮤니티",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "지원",
+			"item": [
+				{
+					"name": "Q&A 게시판",
+					"item": [
+						{
+							"name": "목록 조회",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"srchWord\": \"\",\n    \"srchType\": \"1\",\n    \"page\": 1,\n    \"perPageNum\": 6\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/support/devInquryList",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"support",
+										"devInquryList"
+									]
+								},
+								"description": "qna조회"
+							},
+							"response": []
+						},
+						{
+							"name": "상세 조회",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n      \"inqrySn\": 91\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/support/devInqury",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"support",
+										"devInqury"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "게시글 등록/수정",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"answerAt\": \"string\",\n  \"answerCn\": \"string\",\n  \"answerDt\": \"string\",\n  \"answerUserId\": \"string\",\n  \"answerUserSn\": 0,\n  \"beforeInqrySj\": \"string\",\n  \"beforeInqrySn\": 0,\n  \"creatDt\": \"string\",\n  \"crtrSn\": 0,\n  \"displayPageNum\": 0,\n  \"endPage\": 0,\n  \"fileSn\": 0,\n  \"inqryCn\": \"string\",\n  \"inqryIndex\": 0,\n  \"inqrySj\": \"안녕하세요?\",\n  \"inqrySn\": 0,\n  \"inqryUserSn\": 0,\n  \"next\": true,\n  \"nextInqrySj\": \"string\",\n  \"nextInqrySn\": 0,\n  \"page\": 0,\n  \"pageStart\": 0,\n  \"perPageNum\": 0,\n  \"prev\": true,\n  \"secretAt\": \"string\",\n  \"srchType\": \"string\",\n  \"srchWord\": \"string\",\n  \"startPage\": 0,\n  \"totalCount\": 0,\n  \"updtDt\": \"string\",\n  \"updusrSn\": 0,\n  \"userId\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/support/devInqury",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"support",
+										"devInqury"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "\b게시글 삭제",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"inqrySn\" : \"88\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/support/devInqury",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"support",
+										"devInqury"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "공지사항",
+					"item": [
+						{
+							"name": "http://localhost:8888/api/notice/noticeList",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"srchWord\": \"\",\n    \"srchType\": \"1\",\n    \"page\": 1,\n    \"perPageNum\": 6\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8888/api/notice/noticeList",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"api",
+										"notice",
+										"noticeList"
+									]
+								},
+								"description": "공지사항조회"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
