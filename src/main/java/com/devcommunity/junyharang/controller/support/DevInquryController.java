@@ -100,6 +100,7 @@ import java.util.Map;
             } // if (devInquryVO.getSecretAt().equals("false")) - else 끝
 
             log.info("등록 / 수정 판별을 위해 등록 요청에 게시글 일련번호가 있는지 확인 하겠습니다!");
+            // TODO : 등록 / 수정 Logic 분리 필요
             if (CustomStringUtil.getString(devInquryVO.getInqrySn()) == "" || devInquryVO.getInqrySn() == 0) {
 
                 log.info("등록 요청 게시글 일련번호가 비어있습니다! 게시글 등록을 수행 합니다!");
