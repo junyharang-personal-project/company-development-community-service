@@ -159,7 +159,7 @@ import java.util.Map;
     // TODO - 목록 조회 시 VO에 Data를 받으므로, 불필요한 Data가 전달 될 수 있으며, 검색이 함께 이뤄지는 Logic으로 분리 및 Refactoring 예정
 
     @ResponseBody
-    @GetMapping("/devInquryList")
+    @PostMapping("/devInquryList")
     public Object devInquryList(@RequestBody DevInquryVO devInquryVO) throws Exception {
 
         log.info("DevInquryController의 devInquryList(@RequestBody DevInquryVO devInquryVO)가 호출 되었습니다!");
