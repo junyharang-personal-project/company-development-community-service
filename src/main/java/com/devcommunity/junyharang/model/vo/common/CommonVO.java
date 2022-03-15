@@ -1,5 +1,10 @@
 package com.devcommunity.junyharang.model.vo.common;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * 게시판 공통 Value 처리를 위한 Value Object
  * <pre>
@@ -13,6 +18,7 @@ package com.devcommunity.junyharang.model.vo.common;
  * @see <a href=""></a>
  */
 
+@Getter @Setter @ToString
 public class CommonVO extends Paging{
 
     private String rowNumber;	// 행번호

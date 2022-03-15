@@ -40,14 +40,17 @@
         <if test=' srchType neq null and srchType neq "" '>
             <choose>
                 <when test="srchType eq '1'.toString()">
-                    and INQRY_SJ like CONCAT('%', #{srchWord}, '%')
+                    and i.INQRY_SJ like CONCAT('%', #{srchWord}, '%')
                 </when>
                 <when test="srchType eq '2'.toString()">
-                    and INQRY_CN like CONCAT('%', #{srchWord}, '%')
+                    and i.INQRY_CN like CONCAT('%', #{srchWord}, '%')
                 </when>
                 <when test="srchType eq '3'.toString()">
                     and u.USER_ID like CONCAT('%', #{srchWord}, '%')
                 </when>
+                <otherwise>
+                    AND 1 = 1
+                </otherwise>
             </choose>
         </if>
         order by INQRY_SN desc

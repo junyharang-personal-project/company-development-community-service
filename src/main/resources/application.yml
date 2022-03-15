@@ -1,3 +1,4 @@
+
 spring:
   datasource:
     url: jdbc:log4jdbc:mysql://211.37.173.118:3306/iomt_portal?serverTimezone=UTC&characterEncoding=UTF-8
@@ -14,3 +15,5 @@ mybatis:
     default-fetch-size: 500
   mapper-locations:
     - classpath:mapper/**/*.xml
+#server:
+#  port: 8888
