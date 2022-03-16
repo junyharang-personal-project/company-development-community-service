@@ -16,7 +16,7 @@ import lombok.*;
  * @see <a href=""></a>
  */
 
-@Data
+@Setter @Getter @ToString
 public class DevInquryVO extends CommonVO {
 
     private int InqrySn;

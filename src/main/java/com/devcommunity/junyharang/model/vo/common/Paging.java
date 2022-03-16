@@ -20,65 +20,147 @@ import java.util.PrimitiveIterator;
  * @see <a href=""></a>
  */
 
-@Slf4j @Data
+@Slf4j
+// @Data
 public class Paging extends Criteria{
 
-    private int totalCount;                     // 게시판 전체 Data 개수
-    private int displayPageNum = 10;            // 게시판 화면에서 목록 조회 시 보여질 페이지 번호의 개수
+//    private int totalCount;                     // 게시판 전체 Data 개수
+//    private int displayPageNum = 10;            // 게시판 화면에서 목록 조회 시 보여질 페이지 번호의 개수
+//
+//    private int startPage;                      //  페이징 처리의 시작 번호
+//    private int endPage;                        // 페이징 처리의 끝 번호
+//    private int pageStart;
+//    private boolean prev;                       // 페이징 이전 버튼 활성화 여부
+//    private boolean next;                       // 페이징 다음 버튼 활성화 여부
+//
+//    public int getTotalCount() {
+//      log.info("Paging의 getTotalCount가 호출 되었습니다!");
+//      log.info("게시판 전체 Data 개수를 반환 하겠습니다! : " + totalCount);
+//      return totalCount;
+//    } // getTotalCount() 끝
+//
+//    public void setTotalCount(int totalCount) {
+//        log.info("Paging의 setTotalCount가 호출 되었습니다!");
+//        this.totalCount = totalCount;
+//        this.pageStart = super.getPageStart();
+//
+//        pagingData();
+//    } // setTotalCount(int totalCount) 끝
+//
+//    private void pagingData() {
+//
+//        log.info("Paging의 pagingData()가 호출 되었습니다!");
+//        log.info("페이징 처리의 끝 번호를 계산 하겠습니다!");
+//
+//        endPage = (int) (Math.ceil(super.getPage() / (double) displayPageNum) * displayPageNum);
+//
+//        log.info("페이징 처리 끝 번호 : " + endPage);
+//        log.info("페이징 처리의 시작 번호를 계산 하겠습니다!");
+//
+//        startPage = (endPage - displayPageNum) + 1;
+//
+//        log.info("페이징 처리 시작 번호 : " + startPage);
+//
+//        int tempEndPage = (int) (Math.ceil(totalCount / (double) super.getPerPageNum()));
+//
+//        log.info("임시 끝 번호 : " + tempEndPage);
+//
+//        if (endPage > tempEndPage) {
+//
+//            endPage = tempEndPage;
+//
+//        } // if (endPage > tempEndPage) 끝
+//
+//        // 이전 Page 이동 Button 생성 여부 : 시작 Page 번호가 1과 같으면 만들지 않기 위해 false, 아니면 만들기 위해 true 반환
+//        prev = startPage == 1 ? false : true;
+//
+//        log.info("페이지 이전 값(prev) : " + prev);
+//
+//        // 다음 Page 이동 Button 생성 여부 : 끝 페이지 번호 * 한 Page 당 보여 줄 게시글의 개수가 총 게시글의 수보다 크거나 같으면 만들지 않기 위해 false, 아니면 만들기 위해 true 반환
+//        next = endPage * super.getPerPageNum() >= totalCount ? false : true;
+//
+//        log.info("페이지 다음 값(next)" + next);
+//    } // pagingData()
 
-    private int startPage;                      //  페이징 처리의 시작 번호
-    private int endPage;                        // 페이징 처리의 끝 번호
+    private int totalCount; // 게시판 전체 데이터 개수
+    private int displayPageNum = 10; // 게시판 화면에서 한번에 보여질 페이지 번호의 개수
+
+    private int startPage; // 화면의 시작 번호
+    private int endPage;  // 화면의 끝 번호
+    private boolean prev; // 페이징 이전 버튼 활성화 여부
+    private boolean next; // 페이징 다음 버튼 활성화 여부
     private int pageStart;
-    private boolean prev;                       // 페이징 이전 버튼 활성화 여부
-    private boolean next;                       // 페이징 다음 버튼 활성화 여부
+
+
 
     public int getTotalCount() {
-      log.info("Paging의 getTotalCount가 호출 되었습니다!");
-      log.info("게시판 전체 Data 개수를 반환 하겠습니다! : " + totalCount);
-      return totalCount;
-    } // getTotalCount() 끝
+        return totalCount;
+    }
 
     public void setTotalCount(int totalCount) {
-        log.info("Paging의 setTotalCount가 호출 되었습니다!");
         this.totalCount = totalCount;
         this.pageStart = super.getPageStart();
-
         pagingData();
-    } // setTotalCount(int totalCount) 끝
+    }
 
     private void pagingData() {
 
-        log.info("Paging의 pagingData()가 호출 되었습니다!");
-        log.info("페이징 처리의 끝 번호를 계산 하겠습니다!");
-
         endPage = (int) (Math.ceil(super.getPage() / (double) displayPageNum) * displayPageNum);
-
-        log.info("페이징 처리 끝 번호 : " + endPage);
-        log.info("페이징 처리의 시작 번호를 계산 하겠습니다!");
-
+        // endPage = (현재 페이지 번호 / 화면에 보여질 페이지 번호의 개수) * 화면에 보여질 페이지 번호의 개수
         startPage = (endPage - displayPageNum) + 1;
-
-        log.info("페이징 처리 시작 번호 : " + startPage);
+        // startPage = (끝 페이지 번호 - 화면에 보여질 페이지 번호의 개수) + 1
 
         int tempEndPage = (int) (Math.ceil(totalCount / (double) super.getPerPageNum()));
-
-        log.info("임시 끝 번호 : " + tempEndPage);
-
-        if (endPage > tempEndPage) {
-
+        if(endPage > tempEndPage) {
             endPage = tempEndPage;
+        }
+        // 마지막 페이지 번호 = 총 게시글 수 / 한 페이지당 보여줄 게시글의개수
 
-        } // if (endPage > tempEndPage) 끝
-
-        // 이전 Page 이동 Button 생성 여부 : 시작 Page 번호가 1과 같으면 만들지 않기 위해 false, 아니면 만들기 위해 true 반환
         prev = startPage == 1 ? false : true;
-
-        log.info("페이지 이전 값(prev) : " + prev);
-
-        // 다음 Page 이동 Button 생성 여부 : 끝 페이지 번호 * 한 Page 당 보여 줄 게시글의 개수가 총 게시글의 수보다 크거나 같으면 만들지 않기 위해 false, 아니면 만들기 위해 true 반환
+        // 이전 버튼 생성 여부 = 시작 페이지 번호가 1과 같으면 false, 아니면 true
         next = endPage * super.getPerPageNum() >= totalCount ? false : true;
+        // 다음 버튼 생성 여부 = 끝 페이지 번호 * 한 페이지당 보여줄 게시글의 개수가 총 게시글의 수보다
+        // 크거나 같으면 false, 아니면 true
+    }
 
-        log.info("페이지 다음 값(next)" + next);
-    } // pagingData()
+    public int getDisplayPageNum() {
+        return displayPageNum;
+    }
+
+    public void setDisplayPageNum(int displayPageNum) {
+        this.displayPageNum = displayPageNum;
+    }
+
+    public int getStartPage() {
+        return startPage;
+    }
+
+    public void setStartPage(int startPage) {
+        this.startPage = startPage;
+    }
+
+    public int getEndPage() {
+        return endPage;
+    }
+
+    public void setEndPage(int endPage) {
+        this.endPage = endPage;
+    }
+
+    public boolean isPrev() {
+        return prev;
+    }
+
+    public void setPrev(boolean prev) {
+        this.prev = prev;
+    }
+
+    public boolean isNext() {
+        return next;
+    }
+
+    public void setNext(boolean next) {
+        this.next = next;
+    }
 
 } // class 끝
