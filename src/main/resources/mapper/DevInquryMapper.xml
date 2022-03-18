@@ -17,11 +17,11 @@
             SECRET_AT,
             INQRY_USER_SN
         ) VALUES (
-         #{inqrysj},
-         #{inqryCn}
+         #{inqrySj},
+         #{inqryCn},
          #{fileSn},
          NOW(),
-         #{crtSn},
+         #{crtrSn},
          NOW(),
          #{updusrSn},
          'N',

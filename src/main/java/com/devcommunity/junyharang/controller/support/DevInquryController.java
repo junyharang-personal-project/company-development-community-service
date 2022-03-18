@@ -23,10 +23,11 @@ import java.util.Map;
  * <b>History:</b>
  *    주니하랑, 1.0.0, 2022.03.09 최초 작성
  *    주니하랑, 1.0.1, 2022.03.10 CRUD 및 조회수 Count 구현 완료
+ *    주니하랑, 1.0.2, 2022.03.16 FrontEnd (Vue.js) 동작 구현을 위해 임시로 HTTP Method 변경
  * </pre>
  *
  * @author 주니하랑
- * @version 1.0.1, 2022.03.10 CRUD 및 조회수 Count 구현 완료
+ * @version 1.0.2, 2022.03.16 FrontEnd (Vue.js) 동작 구현을 위해 임시로 HTTP Method 변경
  * @See ""
  * @see <a href=""></a>
  */
@@ -159,7 +160,8 @@ import java.util.Map;
     // TODO - 목록 조회 시 VO에 Data를 받으므로, 불필요한 Data가 전달 될 수 있으며, 검색이 함께 이뤄지는 Logic으로 분리 및 Refactoring 예정
 
     @ResponseBody
-    @PostMapping("/devInquryList")
+//    @PostMapping("/devInquryList")
+    @RequestMapping(value = "/devInquryList", method = {RequestMethod.POST})
     public Object devInquryList(@RequestBody DevInquryVO devInquryVO) throws Exception {
 
         log.info("DevInquryController의 devInquryList(@RequestBody DevInquryVO devInquryVO)가 호출 되었습니다!");
@@ -191,7 +193,8 @@ import java.util.Map;
      * @see ""
      */
 
-    @ResponseBody @GetMapping("/devInqury")
+    @ResponseBody // @PostMapping("/devInqury")
+    @RequestMapping(value = "/devInquryView", method = {RequestMethod.POST})
     public Object devInquryDetail (@RequestBody DevInquryVO devInquryVO) throws Exception {
 
         log.info("DevInquryController의 devInquryDetail (@RequestBody DevInquryVO devInquryVO)가 호출 되었습니다!");
@@ -200,20 +203,19 @@ import java.util.Map;
         Field[] fields = devInquryVO.getClass().getDeclaredFields();
 
         log.info("반복문을 통해 배열에 들어 간 Data를 하나씩 꺼내 확인 해 보겠습니다!");
+        log.info("Java 리플렉션 기법 중 setAccessible(true) 통해 Field 배열 fields의 접근제어 지시자에 의한 제어를 변경 하겠습니다!");
         for (int i = 0; i < fields.length; i++) {
 
             /** 참고 자료
              * @see "https://tyboss.tistory.com/entry/Java-%EC%9E%90%EB%B0%94-%EB%A6%AC%ED%94%8C%EB%A0%89%EC%85%98-reflection-setAccessible"
              */
-
-            log.info("Java 리플렉션 기법 중 setAccessible(true) 통해 Field 배열 fields의 접근제어 지시자에 의한 제어를 변경 하겠습니다!");
             fields[i].setAccessible(true);
 
             System.err.println(fields[i].getName() + " : " + fields[i].get(devInquryVO));
 
         } // for (int i = 0; i < fields.length; i++) 끝
 
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<String, Object>();
 
         log.info("devInquryService.devInquryDetail(devInquryVO)를 호출하여 비즈니스 로직 처리를 하겠습니다!");
         DevInquryVO valueObject = devInquryService.devInquryDetail(devInquryVO);
