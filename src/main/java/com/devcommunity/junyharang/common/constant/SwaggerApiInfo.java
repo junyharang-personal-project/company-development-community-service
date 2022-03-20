@@ -6,10 +6,11 @@ package com.devcommunity.junyharang.common.constant;
  * <b>History:</b>
  *    주니하랑, 1.0.0, 2022.02.08 최초 작성
  *    주니하랑, 1.0.1, 2022.02.28 검색 기능 구현을 위해 변수 추가
+ *    주니하랑, 1.0.2, 2022.03.20 답글 기능 구현을 위해 변수 추가
  * </pre>
  *
  * @author 주니하랑
- * @version 1.0.1, 2022.02.28 검색 기능 구현을 위해 변수 추가
+ * @version 1.0.2, 2022.03.20 답글 기능 구현을 위해 변수 추가
  * @See ""
  * @see <a href=""></a>
  */
@@ -35,6 +36,13 @@ public interface SwaggerApiInfo {
     String DELETE_COMMENT = "댓글 삭제";
     String MODIFY_COMMENT = "댓글 수정";
     String COMMENT_LIKE = "댓글 좋아요";
+
+    String REPLY = "답글 서비스";
+    String WRITE_REPLY = "답글 등록";
+    String GET_REPLY_LIST = "답글 목록 조회";
+    String DELETE_REPLY = "답글 삭제";
+    String MODIFY_REPLY = "답글 수정";
+    String COMMENT_REPLY = "답글 좋아요";
 
     String AUTHORIZE = "인증 서비스";
     String SIGN_IN = "로그인 서비스";
