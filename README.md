@@ -5,9 +5,9 @@ Juny Company라는 가상의 회사 내에서 개발자 직원들이 이용할 �
 <br><br>
 
 ## 👨‍👨‍👧‍👧 참여자
-|이름|Blog|
-|---|---|
-|주니하랑|https://junyharang.tistory.com/|
+|이름|Blog|Instagram|
+|---|---|---|
+|주니하랑|https://junyharang.tistory.com/|https://www.instagram.com/junyharang/|
 
 <br><br><br>
 
@@ -35,3 +35,10 @@ Juny Company라는 가상의 회사 내에서 개발자 직원들이 이용할 �
 
 #### - 부 록 -
 **●[\[BackEnd\]\[Maven-PJ\]개발자 커뮤니티 서비스 - 게시판 만들기 : Paging처리](https://junyharang.tistory.com/211)**
+<br><br>
+
+#### - 내가 만난 Exception -
+**●[\[Exception 정리\] org.apache.ibatis.binding.BindingException: Invalid bound statement (not found)](https://junyharang.tistory.com/213)**
+<br><br><br>
+## ⏩ Client(FrontEnd) 이야기
+[gitHub 주소](https://github.com/junyharang-personal-project/development-community-service-client)
