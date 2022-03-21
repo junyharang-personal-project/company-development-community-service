@@ -1,6 +1,7 @@
 package com.devcommunity.junyharang.service.support;
 
 import com.devcommunity.junyharang.model.vo.support.DevInquryReplyVO;
+import com.devcommunity.junyharang.model.vo.support.DevInquryVO;
 
 /**
  * 개발자 Q&A 답변 관련 비즈니스 Logic Interface

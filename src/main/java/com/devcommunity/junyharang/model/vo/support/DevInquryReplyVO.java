@@ -20,7 +20,8 @@ import lombok.ToString;
 @Setter @Getter @ToString
 public class DevInquryReplyVO {
 
-    private boolean answerAt;
+    private int inqrySn;
+    private String answerAt;
     private String answerCn;
     private int answerUserSn;
     private String answerDt;

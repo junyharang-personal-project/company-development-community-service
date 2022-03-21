@@ -2,8 +2,10 @@ package com.devcommunity.junyharang.service.support;
 
 import com.devcommunity.junyharang.mapper.support.DevInquryReplyMapper;
 import com.devcommunity.junyharang.model.vo.support.DevInquryReplyVO;
+import com.devcommunity.junyharang.model.vo.support.DevInquryVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
@@ -11,7 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Slf4j @Transactional(rollbackFor = Exception.class) @RequiredArgsConstructor
-public class DevInquryReplyServiceImpl implements DevInquryReplyService{
+@Service public class DevInquryReplyServiceImpl implements DevInquryReplyService{
 
 
     private final DevInquryReplyMapper devInquryReplyMapper;
@@ -42,17 +44,18 @@ public class DevInquryReplyServiceImpl implements DevInquryReplyService{
 
             log.info("답변 내용 등록을 위해 최초 답변 여부(answerAt)을 true로 변경하겠습니다!");
 
-            devInquryReplyVO.setAnswerAt(true);
+//            devInquryReplyVO.setAnswerAt("Y");
 
             // TODO - 회원가입 및 로그인 로직 구현 뒤 아래 하드코딩 수정 필요
             log.info("답글 작성자에 대한 내용을 VO에 입력하겠습니다!");
             devInquryReplyVO.setAnswerUserSn(1);
 
+            log.info("devInquryReplyMapper의 devInquryReplyRegist(devInquryReplyVO)를 호출 하겠습니다!");
             devInquryReplyMapper.devInquryReplyRegist(devInquryReplyVO);
 
             result.put("code", 201);
             result.put("message", "답글 등록 성공!");
-            result.put("result", devInquryReplyVO.isAnswerAt());
+            result.put("result", devInquryReplyVO.getAnswerAt());
 
             return result;
 
@@ -60,8 +63,11 @@ public class DevInquryReplyServiceImpl implements DevInquryReplyService{
 
             log.warn("답글 등록 중 문제가 발생하여 Catch절이 동작하였습니다!");
 
+            e.printStackTrace();
+
+            log.warn(e.getMessage());
+
             result.put("code", 500);
-            result.put("message", "Server Internal Error");
 
             return result;
         } // try-catch 끝

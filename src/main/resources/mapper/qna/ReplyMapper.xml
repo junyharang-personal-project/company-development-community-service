@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devcommunity.junyharang.mapper.support.DevInquryReplyMapper">
+
+    <!-- Q&A 답글 등록 -->
+    <update id="devInquryReplyRegist" parameterType="com.devcommunity.junyharang.model.vo.support.DevInquryReplyVO">
+        UPDATE tb_com_inqry
+        SET ANSWER_AT = #{answerAt},
+            ANSWER_CN = #{answerCn},
+            ANSWER_USER_SN = #{answerUserSn},
+            ANSWER_DT = now()
+        WHERE INQRY_SN = #{inqrySn}
+    </update>
+</mapper>
