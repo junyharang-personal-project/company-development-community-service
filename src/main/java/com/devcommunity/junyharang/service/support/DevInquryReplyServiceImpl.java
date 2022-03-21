@@ -1,6 +1,7 @@
 package com.devcommunity.junyharang.service.support;
 
 import com.devcommunity.junyharang.mapper.support.DevInquryReplyMapper;
+import com.devcommunity.junyharang.model.dto.support.DevInquryReplyDeleteDTO;
 import com.devcommunity.junyharang.model.vo.support.DevInquryReplyVO;
 import com.devcommunity.junyharang.model.vo.support.DevInquryVO;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+/**
+ * Q&A 게시판 답변 Service 구현체
+ * <pre>
+ * <b>History:</b>
+ *    주니하랑, 1.0.0, 2022.03.22 최초 작성
+ * </pre>
+ *
+ * @author 주니하랑
+ * @version 1.0.0, 2022.03.22 최초 작성
+ * @See ""
+ * @see <a href=""></a>
+ */
 
 @Slf4j @Transactional(rollbackFor = Exception.class) @RequiredArgsConstructor
 @Service public class DevInquryReplyServiceImpl implements DevInquryReplyService{
@@ -25,6 +39,9 @@ import java.util.Objects;
 
     @Override
     public Object devInquryReplyRegist(DevInquryReplyVO devInquryReplyVO) {
+
+        log.info("DevInquryReplyService를 구현한 DevInquryReplyServiceImpl의 devInquryReplyRegist(DevInquryReplyVO devInquryReplyVO)가 호출 되었습니다!");
+
         Map<String, Object> result = new HashMap<>();
 
         try {
@@ -55,7 +72,7 @@ import java.util.Objects;
 
             result.put("code", 201);
             result.put("message", "답글 등록 성공!");
-            result.put("result", devInquryReplyVO.getAnswerAt());
+            result.put("resultSn", devInquryReplyVO.getInqrySn());
 
             return result;
 
@@ -73,4 +90,40 @@ import java.util.Objects;
         } // try-catch 끝
     } // devInquryReplyRegist(DevInquryReplyVO devInquryReplyVO) 끝
 
+
+    /**
+     * 답글 삭제
+     * @param inqrySn 답글 삭제 시 삭제할 게시글 번호를 담은 변수
+     */
+
+    @Override
+    public Object devInquryReplyDelete(int inqrySn) {
+        Map<String, Object> result = new HashMap<>();
+
+        log.info("DevInquryReplyService를 구현한 DevInquryReplyServiceImpl의 devInquryReplyDelete(int inqrySn)가 호출 되었습니다!");
+
+        try {
+            log.info("devInquryReplyMapper.devInquryReplyDelete(inqrySn)를 호출하여 SQL문을 DB에 전달 하겠습니다!");
+
+            devInquryReplyMapper.devInquryReplyDelete(inqrySn);
+
+            result.put("code", 200);
+            result.put("statusText", "OK / 삭제 성공!");
+            result.put("InqrySn", inqrySn);
+
+            return result;
+        } catch (Exception e) {
+
+            log.info("Q&A 게시글 답변을 삭제 하다가 문제가 발생하여 Catch 절로 넘어 왔습니다!");
+
+            e.printStackTrace();
+
+            log.error(e.getMessage());
+
+            result.put("code", 500);
+            result.put("statusText", "Server Internal Error");
+
+            return result;
+        } // try - catch 끝
+    } // devInquryReplyDelete(DevInquryReplyDeleteDTO devInquryReplyDeleteDTO) 끝
 } // class 끝

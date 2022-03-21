@@ -39,7 +39,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
     private ApiInfo apiInfo() {
 
         return new ApiInfoBuilder()
-                .title("이/홍가 Community Project API Document")
+                .title("JUNY Company")
                 .version("1.0.0")
                 .description(
                         "<h1> 주니하랑 개인 프로젝트!! </h1> "

@@ -31,6 +31,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .addMapping("/**")
                 .allowedOrigins("*")
 //                .allowedOrigins("http://localhost:3000")
-                .allowedMethods("GET", "POST","DELETE");
+                .allowedMethods("GET", "POST", "DELETE");
     } // addCorsMappings(CorsRegistry registry) 끝
 } // class 끝

@@ -3,13 +3,14 @@ package com.devcommunity.junyharang.controller.support;
 import com.devcommunity.junyharang.common.constant.ServiceURIMng;
 import com.devcommunity.junyharang.common.constant.SwaggerApiInfo;
 import com.devcommunity.junyharang.model.vo.support.DevInquryReplyVO;
-import com.devcommunity.junyharang.model.vo.support.DevInquryVO;
 import com.devcommunity.junyharang.service.support.DevInquryReplyService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 개발자 Q&A 관련 API(Router)
@@ -31,12 +32,15 @@ import org.springframework.web.bind.annotation.*;
 
     private final DevInquryReplyService devInquryReplyService;
 
-    @ApiOperation(value = SwaggerApiInfo.WRITE_REPLY, notes = "Q&A 답글 등록 서비스 입니다.")
+    @ApiOperation(value = SwaggerApiInfo.WRITE_REPLY, notes = "Q&A 답글 등록 / 수정 서비스 입니다.")
     @ApiParam(name = "devInquryReplyVO", value = "답변 등록 / 수정 시 입력 되어야 할 내용 객체 입니다.", readOnly = true)
-    @ApiResponses(value = { @ApiResponse(code=200, message = "1.등록 성공 \n 2.등록 실패")})
+    @ApiResponses(value = { @ApiResponse(code=201, message = "1.등록 / 수정 성공"),
+                            @ApiResponse(code = 500, message = "Sever Error")})
 
-    @ResponseBody @PostMapping("/devInqury/Reply")
-    public void devInquryReplyRegist(@RequestBody DevInquryReplyVO devInquryReplyVO) throws Exception {
+    @ResponseBody @PostMapping("/dev-inqury/reply")
+    public Object devInquryReplyRegist(@RequestBody DevInquryReplyVO devInquryReplyVO) throws Exception {
+
+        Map<String, Object> result = new HashMap<>();
 
         log.info("DevInquryReplyController의 devInquryReplyRegist(@RequestBody DevInquryReplyVO devInquryReplyVO)가 동작 했습니다! 이용자가 답글 달기를 시도 합니다!");
 
@@ -44,6 +48,25 @@ import org.springframework.web.bind.annotation.*;
 
         devInquryReplyService.devInquryReplyRegist(devInquryReplyVO);
 
+        result.put("inqurySn", devInquryReplyVO.getInqrySn());
+
+        return result;
+
     } // devInquryReplyRegist(@RequestBody DevInquryReplyVO devInquryReplyVO) 끝
+
+    @ApiOperation(value = SwaggerApiInfo.DELETE_COMMENT, notes = "Q&A 답글 삭제 서비스 입니다.")
+    @ApiParam(name = "inqrySn", value = "삭제 시 삭제 대상 게시글 일련 번호 입니다.", readOnly = true)
+    @ApiResponses(value = { @ApiResponse(code=200, message = "1.삭제 성공"),
+                             @ApiResponse(code = 500, message = "Sever Error")})
+
+    @ResponseBody @DeleteMapping("/dev-inqury/reply/{inqrySn}") public Object deleteReply (@PathVariable("inqrySn") int inqrySn) throws Exception {
+
+        log.info("DevInquryReplyController의 deleteReply (@PathVariable(\"devInquryReplyDeleteDTO\") DevInquryReplyDeleteDTO devInquryReplyDeleteDTO)가 동작 했습니다! 이용자가 답글 삭제를 시도 합니다!");
+
+        return devInquryReplyService.devInquryReplyDelete(inqrySn);
+
+
+
+    } // deleteReply (@PathVariable("devInquryReplyDeleteDTO") DevInquryReplyDeleteDTO devInquryReplyDeleteDTO) 끝
 
 } // class 끝

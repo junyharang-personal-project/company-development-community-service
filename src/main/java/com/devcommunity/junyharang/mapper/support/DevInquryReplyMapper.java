@@ -1,5 +1,6 @@
 package com.devcommunity.junyharang.mapper.support;
 
+import com.devcommunity.junyharang.model.dto.support.DevInquryReplyDeleteDTO;
 import com.devcommunity.junyharang.model.vo.support.DevInquryReplyVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -26,4 +27,10 @@ import org.springframework.stereotype.Repository;
 
     void devInquryReplyRegist(DevInquryReplyVO devInquryReplyVO);
 
+    /**
+     * 답글 삭제
+     * @param inqrySn 답글 삭제 시 삭제할 게시글 번호를 담은 DTO
+     */
+
+    void devInquryReplyDelete(int inqrySn);
 } // Interface 끝

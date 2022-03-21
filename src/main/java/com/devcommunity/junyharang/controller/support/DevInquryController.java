@@ -234,8 +234,8 @@ import java.util.Map;
     @ApiResponses(value = { @ApiResponse(code=200, message = "1.삭제 성공 \n 2.삭제 실패")})
 
     /**
-     * 상세 조회 서비스
-     * @param devInquryVO - 회원 가입을 위한 이용자 입력값을 담은 DTO
+     * 삭제 서비스
+     * @param devInquryVO - 게시글 삭제 정보를 담은 VO
      * @return Object - 서버 처리 여부에 해당하는 Status Code 및 Data 반환을 위한 객체
      * @see ""
      */
