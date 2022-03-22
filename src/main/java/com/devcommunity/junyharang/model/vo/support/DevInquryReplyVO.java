@@ -20,9 +20,9 @@ import lombok.ToString;
 @Setter @Getter @ToString
 public class DevInquryReplyVO {
 
-    private int inqrySn;
-    private String answerAt;
-    private String answerCn;
-    private int answerUserSn;
-    private String answerDt;
+    private int inqrySn;                            //  게시글 일련 번호
+    private String answerAt;                        //  답글 여부 ("Y" || "N")
+    private String answerCn;                        //  답글 내용
+    private int answerUserSn;                       //  작성자 일련 번호
+    private String answerDt;                        //  답글 작성일
 } // class 끝

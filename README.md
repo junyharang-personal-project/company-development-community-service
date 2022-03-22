@@ -31,10 +31,16 @@ Juny Company라는 가상의 회사 내에서 개발자 직원들이 이용할 �
 **●[\[BackEnd\]\[Maven-PJ\] 개발자 커뮤니티 서비스 - 게시판 만들기 : 목록 조회](https://junyharang.tistory.com/218)**
 <br>
 
-**●[\[BackEnd\]\[Maven-PJ\]개발자 커뮤니티 서비스 - 게시판 만들기 : 상세 조회](https://junyharang.tistory.com/220)**
+**●[\[BackEnd\]\[Maven-PJ\] 개발자 커뮤니티 서비스 - 게시판 만들기 : 상세 조회](https://junyharang.tistory.com/220)**
 <br>
 
-**●[\[BackEnd\]\[Maven-PJ\]개발자 커뮤니티 서비스 - 게시판 만들기 : 삭제](https://junyharang.tistory.com/221)**
+**●[\[BackEnd\]\[Maven-PJ\] 개발자 커뮤니티 서비스 - 게시판 만들기 : 삭제](https://junyharang.tistory.com/221)**
+<br>
+
+**●[\[BackEnd\]\[Maven-PJ\][BackEnd][Maven-PJ] 개발자 커뮤니티 서비스 - 게시판 : 답변 등록 / 수정](https://junyharang.tistory.com/243)**
+<br>
+
+**●[\[BackEnd\]\[Maven-PJ\] 개발자 커뮤니티 서비스 - 게시판 : 답변 삭제](https://junyharang.tistory.com/245)**
 <br><br>
 
 #### 👩‍❤️‍👨 회원 관리(User Management)

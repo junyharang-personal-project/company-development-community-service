@@ -1,9 +1,7 @@
 package com.devcommunity.junyharang.service.support;
 
 import com.devcommunity.junyharang.mapper.support.DevInquryReplyMapper;
-import com.devcommunity.junyharang.model.dto.support.DevInquryReplyDeleteDTO;
 import com.devcommunity.junyharang.model.vo.support.DevInquryReplyVO;
-import com.devcommunity.junyharang.model.vo.support.DevInquryVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

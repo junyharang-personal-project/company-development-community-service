@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 개발자 Q&A 관련 API(Router)
+ * 개발자 Q&A 게시글 답변 관련 API(Router)
  * <pre>
  * <b>History:</b>
  *    주니하랑, 1.0.0, 2022.03.20 최초 작성
@@ -64,8 +64,6 @@ import java.util.Map;
         log.info("DevInquryReplyController의 deleteReply (@PathVariable(\"devInquryReplyDeleteDTO\") DevInquryReplyDeleteDTO devInquryReplyDeleteDTO)가 동작 했습니다! 이용자가 답글 삭제를 시도 합니다!");
 
         return devInquryReplyService.devInquryReplyDelete(inqrySn);
-
-
 
     } // deleteReply (@PathVariable("devInquryReplyDeleteDTO") DevInquryReplyDeleteDTO devInquryReplyDeleteDTO) 끝
 

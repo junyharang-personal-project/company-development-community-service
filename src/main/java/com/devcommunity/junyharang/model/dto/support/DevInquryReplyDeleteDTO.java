@@ -5,7 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Q&A 게시판 Value Object
+ * Q&A 게시판 답변 관련 게시글 번호를 담은 DTO
  * <pre>
  * <b>History:</b>
  *    주니하랑, 1.0.0, 2022.03.22 최초 작성
