@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Spring ###
+application.yml
+
+### etc ###
+*.class
+*.jar
+
+### MAC OS ###
+.DS_Store

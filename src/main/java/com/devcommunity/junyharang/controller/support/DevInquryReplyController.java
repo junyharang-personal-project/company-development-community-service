@@ -9,11 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * 개발자 Q&A 게시글 답변 관련 API(Router)
+ * 개발자 Q&A 게시글 답글 관련 API(Router)
  * <pre>
  * <b>History:</b>
  *    주니하랑, 1.0.0, 2022.03.20 최초 작성
@@ -40,17 +37,11 @@ import java.util.Map;
     @ResponseBody @PostMapping("/dev-inqury/reply")
     public Object devInquryReplyRegist(@RequestBody DevInquryReplyVO devInquryReplyVO) throws Exception {
 
-        Map<String, Object> result = new HashMap<>();
-
         log.info("DevInquryReplyController의 devInquryReplyRegist(@RequestBody DevInquryReplyVO devInquryReplyVO)가 동작 했습니다! 이용자가 답글 달기를 시도 합니다!");
 
         log.info("요청으로 들어온 답글에 대한 VO 내용 : " + devInquryReplyVO.toString());
 
-        devInquryReplyService.devInquryReplyRegist(devInquryReplyVO);
-
-        result.put("inqurySn", devInquryReplyVO.getInqrySn());
-
-        return result;
+        return devInquryReplyService.devInquryReplyRegist(devInquryReplyVO);
 
     } // devInquryReplyRegist(@RequestBody DevInquryReplyVO devInquryReplyVO) 끝
 

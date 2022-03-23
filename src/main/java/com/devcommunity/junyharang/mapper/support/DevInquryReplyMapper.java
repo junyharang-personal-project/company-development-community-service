@@ -1,6 +1,5 @@
 package com.devcommunity.junyharang.mapper.support;
 
-import com.devcommunity.junyharang.model.dto.support.DevInquryReplyDeleteDTO;
 import com.devcommunity.junyharang.model.vo.support.DevInquryReplyVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;

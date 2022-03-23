@@ -57,10 +57,6 @@ import java.util.Objects;
                 return result;
             } // if (devInquryReplyVO.getAnswerCn() == null || Objects.equals(devInquryReplyVO.getAnswerDt(), "")) 끝
 
-            log.info("답변 내용 등록을 위해 최초 답변 여부(answerAt)을 true로 변경하겠습니다!");
-
-//            devInquryReplyVO.setAnswerAt("Y");
-
             // TODO - 회원가입 및 로그인 로직 구현 뒤 아래 하드코딩 수정 필요
             log.info("답글 작성자에 대한 내용을 VO에 입력하겠습니다!");
             devInquryReplyVO.setAnswerUserSn(1);
@@ -70,7 +66,7 @@ import java.util.Objects;
 
             result.put("code", 201);
             result.put("message", "답글 등록 성공!");
-            result.put("resultSn", devInquryReplyVO.getInqrySn());
+            result.put("inqrySn", devInquryReplyVO.getInqrySn());
 
             return result;
 
@@ -87,7 +83,6 @@ import java.util.Objects;
             return result;
         } // try-catch 끝
     } // devInquryReplyRegist(DevInquryReplyVO devInquryReplyVO) 끝
-
 
     /**
      * 답글 삭제
