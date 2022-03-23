@@ -12,16 +12,72 @@
 					"name": "Q&A 게시판",
 					"item": [
 						{
+							"name": "답글",
+							"item": [
+								{
+									"name": "답글 등록 / 수정",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\n  \"answerAt\": \"Y\",\n  \"answerCn\": \"답글 테스트 중!\",\n  \"answerDt\" : \"string\",\n  \"answerUserSn\": 1,\n  \"inqrySn\": \"138\"\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/support/dev-\binqury/reply",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"support",
+												"dev-\binqury",
+												"reply"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "답글 삭제",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/support/dev-inqury/reply/94",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"support",
+												"dev-inqury",
+												"reply",
+												"94"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "목록 조회",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"srchWord\": \"\",\n    \"srchType\": \"1\",\n    \"page\": 1,\n    \"perPageNum\": 6\n}",
+									"raw": "{\n    \"srchWord\": \"\",\n    \"srchType\": \"1\",\n    \"page\": 5,\n    \"perPageNum\": 10\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -47,11 +103,8 @@
 						},
 						{
 							"name": "상세 조회",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -63,7 +116,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/support/devInqury",
+									"raw": "http://localhost:8080/api/support/devInquryView",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -72,7 +125,7 @@
 									"path": [
 										"api",
 										"support",
-										"devInqury"
+										"devInquryView"
 									]
 								}
 							},
@@ -85,7 +138,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"answerAt\": \"string\",\n  \"answerCn\": \"string\",\n  \"answerDt\": \"string\",\n  \"answerUserId\": \"string\",\n  \"answerUserSn\": 0,\n  \"beforeInqrySj\": \"string\",\n  \"beforeInqrySn\": 0,\n  \"creatDt\": \"string\",\n  \"crtrSn\": 0,\n  \"displayPageNum\": 0,\n  \"endPage\": 0,\n  \"fileSn\": 0,\n  \"inqryCn\": \"string\",\n  \"inqryIndex\": 0,\n  \"inqrySj\": \"안녕하세요?\",\n  \"inqrySn\": 0,\n  \"inqryUserSn\": 0,\n  \"next\": true,\n  \"nextInqrySj\": \"string\",\n  \"nextInqrySn\": 0,\n  \"page\": 0,\n  \"pageStart\": 0,\n  \"perPageNum\": 0,\n  \"prev\": true,\n  \"secretAt\": \"string\",\n  \"srchType\": \"string\",\n  \"srchWord\": \"string\",\n  \"startPage\": 0,\n  \"totalCount\": 0,\n  \"updtDt\": \"string\",\n  \"updusrSn\": 0,\n  \"userId\": \"string\"\n}",
+									"raw": "{\n\"inqrySn\" : \"106\",\n\"inqrySj\": \"안녕하소!!\",\n\"inqryCn\": \"코딩은 정말 넘나 넘나 재밌어요!\",\n\"secretAt\": true\n}\n\n          ",
 									"options": {
 										"raw": {
 											"language": "json"
