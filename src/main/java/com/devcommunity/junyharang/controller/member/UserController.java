@@ -3,6 +3,7 @@ package com.devcommunity.junyharang.controller.member;
 import com.devcommunity.junyharang.common.constant.DefaultResponse;
 import com.devcommunity.junyharang.common.constant.ServiceURIMng;
 import com.devcommunity.junyharang.common.constant.SwaggerApiInfo;
+import com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO;
 import com.devcommunity.junyharang.model.vo.member.CustomUserDetails;
 import com.devcommunity.junyharang.service.user.UserService;
 import io.swagger.annotations.*;
@@ -10,15 +11,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 /**
- * 회원 관련 JPA
+ * 회원 관련 Controller
  * <pre>
  * <b>History:</b>
  *    주니하랑, 1.0.0, 2022.03.24 최초 작성
@@ -36,8 +34,80 @@ import javax.validation.Valid;
 
     private final UserService userService;
 
+    @ApiOperation(value = SwaggerApiInfo.DUPLICATE_ID, notes = "회원 가입 전 ID 중복 확인 서비스 입니다.")
+    @ApiParam(name = "DuplicateByIdInfoDTO", value = "이용을 원하는 이용자가 회원 가입을 위해 ID 중복 확인 합니다.", readOnly = true)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "사용 가능"),
+            @ApiResponse(code = 409, message = "입력값 중복"),
+            @ApiResponse(code = 500, message = "Server Internal Error")
+    })
+
+    @ResponseBody
+    @PostMapping("/duplicate/userid") public DefaultResponse duplicateUserID(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO) {
+
+        log.info("UserController의 duplicateUserID(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO)가 호출 되었습니다! Client로 부터 전달된 값 확인 : " + duplicateByIdInfoDTO.toString());
+        log.info("userService.duplicateUserID(duplicateByIdInfoDTO)를 호출하여 비즈니스 로직을 처리하겠습니다!");
+
+        return userService.duplicateUserID(duplicateByIdInfoDTO);
+
+    } // duplicateId(@RequestBody String username) 끝
+
+    @ApiOperation(value = SwaggerApiInfo.DUPLICATE_NICKNAME, notes = "회원 가입 전 별명 중복 확인 서비스 입니다.")
+    @ApiParam(name = "DuplicateByIdInfoDTO", value = "이용을 원하는 이용자가 회원 가입을 위해 별명 중복 확인 합니다.", readOnly = true)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "사용 가능"),
+            @ApiResponse(code = 409, message = "입력값 중복"),
+            @ApiResponse(code = 500, message = "Server Internal Error")
+    })
+
+    @ResponseBody
+    @PostMapping("/duplicate/nickname") public DefaultResponse duplicateUserNickName(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO) {
+
+        log.info("UserController의 duplicateUserNickName(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO)가 호출 되었습니다! Client로 부터 전달된 값 확인 : " + duplicateByIdInfoDTO.toString());
+        log.info("userService.duplicateUserNickName(duplicateByIdInfoDTO)를 호출하여 비즈니스 로직을 처리하겠습니다!");
+
+        return userService.duplicateUserNickName(duplicateByIdInfoDTO);
+
+    } // duplicateId(@RequestBody String username) 끝
+
+    @ApiOperation(value = SwaggerApiInfo.DUPLICATE_EMAIL, notes = "회원 가입 전 E-mail 중복 확인 서비스 입니다.")
+    @ApiParam(name = "DuplicateByIdInfoDTO", value = "이용을 원하는 이용자가 회원 가입을 위해 mail 중복 확인 합니다.", readOnly = true)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "사용 가능"),
+            @ApiResponse(code = 409, message = "입력값 중복"),
+            @ApiResponse(code = 500, message = "Server Internal Error")
+    })
+
+    @ResponseBody
+    @PostMapping("/duplicate/email") public DefaultResponse duplicateUserEmail(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO) {
+
+        log.info("UserController의 duplicateUserEmail(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO)가 호출 되었습니다! Client로 부터 전달된 값 확인 : " + duplicateByIdInfoDTO.toString());
+        log.info("userService.duplicateUserEmail(duplicateByIdInfoDTO)를 호출하여 비즈니스 로직을 처리하겠습니다!");
+
+        return userService.duplicateUserEmail(duplicateByIdInfoDTO);
+
+    } // duplicateId(@RequestBody String username) 끝
+
+    @ApiOperation(value = SwaggerApiInfo.DUPLICATE_PHONE_NUMBER, notes = "회원 가입 전 핸드폰 번호 중복 확인 서비스 입니다.")
+    @ApiParam(name = "DuplicateByIdInfoDTO", value = "이용을 원하는 이용자가 회원 가입을 위해 핸드폰 번호 중복 확인 합니다.", readOnly = true)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "사용 가능"),
+            @ApiResponse(code = 409, message = "입력값 중복"),
+            @ApiResponse(code = 500, message = "Server Internal Error")
+    })
+
+    @ResponseBody
+    @PostMapping("/duplicate/phone-number") public DefaultResponse duplicateUserPhoneNumber(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO) {
+
+        log.info("UserController의 duplicateUserPhoneNumber(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO)가 호출 되었습니다! Client로 부터 전달된 값 확인 : " + duplicateByIdInfoDTO.toString());
+        log.info("userService.duplicateUserPhoneNumber(duplicateByIdInfoDTO)를 호출하여 비즈니스 로직을 처리하겠습니다!");
+
+        return userService.duplicateUserPhoneNumber(duplicateByIdInfoDTO);
+
+    } // duplicateId(@RequestBody String username) 끝
+
     @ApiOperation(value = SwaggerApiInfo.SIGN_UP, notes = "회원 가입 서비스 입니다.")
-    @ApiParam(name = "MemberSignUpRequestDTO", value = "이용을 원하는 이용자가 회원 가입을 합니다. \n 필수 : 자기 소개, 프로필 사진을 제외한 모든 항목 \n 비밀번호는 암호화 처리", readOnly = true)
+    @ApiParam(name = "customUserDetails", value = "이용을 원하는 이용자가 회원 가입을 위해 작성한 내용을 담은 객체 입니다. \n 필수 : 자기 소개, 프로필 사진을 제외한 모든 항목 \n 비밀번호는 암호화 처리", readOnly = true)
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "Email 중복"),
             @ApiResponse(code=201, message = "가입 성공"),

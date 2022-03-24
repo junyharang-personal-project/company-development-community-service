@@ -47,6 +47,10 @@ public interface SwaggerApiInfo {
     String AUTHORIZE = "인증 서비스";
     String SIGN_IN = "로그인 서비스";
     String SIGN_UP = "회원 가입 서비스";
+    String DUPLICATE_ID = "ID 중복 확인";
+    String DUPLICATE_NICKNAME = "별명 중복 확인";
+    String DUPLICATE_EMAIL = "Email 중복 확인";
+    String DUPLICATE_PHONE_NUMBER = "핸드폰 번호 중복 확인";
 
     String REPLACE_TOKEN = "JWT 재발행 서비스";
     String FILE_UPLODER = "파일 업로드 서비스";

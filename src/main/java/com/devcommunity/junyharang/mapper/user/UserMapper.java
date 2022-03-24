@@ -1,5 +1,6 @@
 package com.devcommunity.junyharang.mapper.user;
 
+import com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO;
 import com.devcommunity.junyharang.model.vo.member.CustomUserDetails;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -22,13 +23,40 @@ import java.util.Optional;
 @Mapper @Repository public interface UserMapper {
 
     /**
-     * 회원 가입 전 등록된 계정인지 확인
-     * @param userId - 회원 가입 전 등록되어 있는 ID인지 확인을 위한 이용자 입력 ID
-     * @return CustomUserDetails - 해당 회원의 정보 반
+     * 회원 가입 전 등록된 정보 인지 확인
+     * @param duplicateByIdInfoDTO - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 입력 정보 DTO
+     * @return CustomUserDetails - 해당 회원의 정보 반환
      * @see ""
      */
 
-    Optional<CustomUserDetails> findByUserName(String userId);
+    Optional<DuplicateByIdInfoDTO> findByUserID(DuplicateByIdInfoDTO duplicateByIdInfoDTO);
+
+    /**
+     * 회원 가입 전 등록된 정보 인지 확인 - 별명
+     * @param duplicateByIdInfoDTO - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 입력 정보 DTO
+     * @return CustomUserDetails - 해당 회원의 정보 반환
+     * @see ""
+     */
+
+    Optional<DuplicateByIdInfoDTO> findByUserNickName(DuplicateByIdInfoDTO duplicateByIdInfoDTO);
+
+    /**
+     * 회원 가입 전 등록된 정보 인지 확인 - E-mail
+     * @param duplicateByIdInfoDTO - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 입력 정보 DTO
+     * @return CustomUserDetails - 해당 회원의 정보 반환
+     * @see ""
+     */
+
+    Optional<DuplicateByIdInfoDTO> findByUserEmail(DuplicateByIdInfoDTO duplicateByIdInfoDTO);
+
+    /**
+     * 회원 가입 전 등록된 정보 인지 확인 - 핸드폰 번호
+     * @param duplicateByIdInfoDTO - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 입력 정보 DTO
+     * @return CustomUserDetails - 해당 회원의 정보 반환
+     * @see ""
+     */
+
+    Optional<DuplicateByIdInfoDTO> findByUserPhoneNumber(DuplicateByIdInfoDTO duplicateByIdInfoDTO);
 
     /**
      * 회원 가입을 위한 추상 Method

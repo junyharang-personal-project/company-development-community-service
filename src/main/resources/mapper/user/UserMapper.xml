@@ -2,13 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.devcommunity.junyharang.mapper.user.UserMapper">
 
-    <!-- 기 등록된 회원이 있는지 확인 -->
-    <select id="findByUserName" resultType="com.devcommunity.junyharang.model.vo.member.CustomUserDetails">
+    <!-- 기 등록된 회원 정보가 있는지 확인 ID -->
+    <select id="findByUserID" parameterType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO"
+            resultType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO">
 
-        select nickName, userEmail, userPhone
+        select username
         from user
         where username = #{username}
+    </select>
 
+    <!-- 기 등록된 회원 정보가 있는지 확인 별명 -->
+    <select id="findByUserNickName" parameterType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO"
+            resultType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO">
+
+        select nickname
+        from user
+        where nickname = #{nickname}
+    </select>
+
+    <!-- 기 등록된 회원 정보가 있는지 확인 Email -->
+    <select id="findByUserEmail" parameterType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO"
+            resultType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO">
+
+        select userEmail
+        from user
+        where userEmail = #{userEmail}
+    </select>
+
+    <!-- 기 등록된 회원 정보가 있는지 확인 핸드폰 번호 -->
+    <select id="findByUserPhoneNumber" parameterType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO"
+            resultType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO">
+
+        select userPhone
+        from user
+        where userPhone = #{userPhone}
     </select>
 
 
