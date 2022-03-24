@@ -230,6 +230,41 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "회원 관련",
+			"item": [
+				{
+					"name": "회원 가입",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"authority\": \"ROLE_USER\",\n  \"enable\": true,\n  \"nickname\": \"주니하랑\",\n  \"password\": \"1234\",\n  \"teamName\": \"주니\",\n  \"userEmail\": \"junyharang8592@gmail.com\",\n  \"userKind\": \"user\",\n  \"userPhone\": \"010-123-4567\",\n  \"username\": \"주니\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/user/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
