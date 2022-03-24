@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devcommunity.junyharang.mapper.user.UserMapper">
+
+    <!-- 기 등록된 회원이 있는지 확인 -->
+    <select id="findByUserName" resultType="com.devcommunity.junyharang.model.vo.member.CustomUserDetails">
+
+        select nickName, userEmail, userPhone
+        from user
+        where username = #{username}
+
+    </select>
+
+
+    <!-- 회원 가입을 위해 DB에 회원 정보 저장 -->
+    <insert id="signUp" parameterType="com.devcommunity.junyharang.model.vo.member.CustomUserDetails">
+        <![CDATA[
+        insert into user (
+            username,
+            password,
+            nickname,
+            userEmail,
+            userPhone,
+            teamName,
+            userKind,
+            enable,
+            authority
+        ) values (
+          #{username},
+          #{password},
+          #{nickname},
+          #{userEmail},
+          #{userPhone},
+          #{teamName},
+          #{userKind},
+          1,
+          "ROLE_USER"
+         )
+        ]]>
+    </insert>
+</mapper>

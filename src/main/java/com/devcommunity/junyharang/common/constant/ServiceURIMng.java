@@ -15,7 +15,7 @@ package com.devcommunity.junyharang.common.constant;
 
 public interface ServiceURIMng {
 
-    String MEMBER = "/api/member";
+    String USER = "/api/user";
     String SUPPORT_SERVICE = "/api/support";
 
 } // interface 끝
