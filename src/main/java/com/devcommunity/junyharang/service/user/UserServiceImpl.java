@@ -31,7 +31,7 @@ import java.util.Optional;
     private final UserMapper userMapper;
 
     /**
-     * 회원 가입 전 등록된 정보 인지 확인
+     * 회원 가입 전 등록된 ID 정보 인지 확인
      * @param duplicateByIdInfoDTO - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 입력 정보 DTO
      * @return CustomUserDetails - 해당 회원의 정보 반환
      * @see ""
@@ -60,7 +60,7 @@ import java.util.Optional;
     } // duplicateId(String username) 끝
 
     /**
-     * 회원 가입 전 등록된 정보 인지 확인
+     * 회원 가입 전 등록된 별명 정보 인지 확인
      * @param duplicateByIdInfoDTO - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 입력 정보 DTO
      * @return CustomUserDetails - 해당 회원의 정보 반환
      * @see ""
@@ -70,7 +70,7 @@ import java.util.Optional;
     public DefaultResponse duplicateUserNickName(DuplicateByIdInfoDTO duplicateByIdInfoDTO) {
         log.info("UserServiceImpl의 duplicateUserID(String username)가 호출 되었습니다! Client로 부터 전달된 값 : " + duplicateByIdInfoDTO);
         log.info("DB에서 회원 가입 요청 이용자가 입력한 별명을 통해 해당 회원이 등록 되어 있는지 찾겠습니다!");
-        Optional<DuplicateByIdInfoDTO> findByUserNickName = userMapper.findByUserID(duplicateByIdInfoDTO);
+        Optional<DuplicateByIdInfoDTO> findByUserNickName = userMapper.findByUserNickName(duplicateByIdInfoDTO);
 
 
 
@@ -89,7 +89,7 @@ import java.util.Optional;
     }
 
     /**
-     * 회원 가입 전 등록된 정보 인지 확인
+     * 회원 가입 전 등록된 Email 정보 인지 확인
      * @param duplicateByIdInfoDTO - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 입력 정보 DTO
      * @return CustomUserDetails - 해당 회원의 정보 반환
      * @see ""
@@ -99,7 +99,7 @@ import java.util.Optional;
     public DefaultResponse duplicateUserEmail(DuplicateByIdInfoDTO duplicateByIdInfoDTO) {
         log.info("UserServiceImpl의 duplicateUserID(String username)가 호출 되었습니다! Client로 부터 전달된 값 : " + duplicateByIdInfoDTO);
         log.info("DB에서 회원 가입 요청 이용자가 입력한 UserId(username)를 통해 해당 회원이 등록 되어 있는지 찾겠습니다!");
-        Optional<DuplicateByIdInfoDTO> findByUserEmail = userMapper.findByUserID(duplicateByIdInfoDTO);
+        Optional<DuplicateByIdInfoDTO> findByUserEmail = userMapper.findByUserEmail(duplicateByIdInfoDTO);
 
         if (findByUserEmail.isEmpty()) {
 
@@ -116,7 +116,7 @@ import java.util.Optional;
     }
 
     /**
-     * 회원 가입 전 등록된 정보 인지 확인
+     * 회원 가입 전 등록된 핸드폰 번호 정보 인지 확인
      * @param duplicateByIdInfoDTO - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 입력 정보 DTO
      * @return CustomUserDetails - 해당 회원의 정보 반환
      * @see ""
@@ -126,7 +126,7 @@ import java.util.Optional;
     public DefaultResponse duplicateUserPhoneNumber(DuplicateByIdInfoDTO duplicateByIdInfoDTO) {
         log.info("UserServiceImpl의 duplicateUserID(String username)가 호출 되었습니다! Client로 부터 전달된 값 : " + duplicateByIdInfoDTO);
         log.info("DB에서 회원 가입 요청 이용자가 입력한 UserId(username)를 통해 해당 회원이 등록 되어 있는지 찾겠습니다!");
-        Optional<DuplicateByIdInfoDTO> findByUserphoneNumber = userMapper.findByUserID(duplicateByIdInfoDTO);
+        Optional<DuplicateByIdInfoDTO> findByUserphoneNumber = userMapper.findByUserPhoneNumber(duplicateByIdInfoDTO);
 
         if (findByUserphoneNumber.isEmpty()) {
 

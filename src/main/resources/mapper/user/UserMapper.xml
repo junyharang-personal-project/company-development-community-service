@@ -48,8 +48,6 @@
             nickname,
             userEmail,
             userPhone,
-            teamName,
-            userKind,
             enable,
             authority
         ) values (
@@ -58,8 +56,6 @@
           #{nickname},
           #{userEmail},
           #{userPhone},
-          #{teamName},
-          #{userKind},
           1,
           "ROLE_USER"
          )

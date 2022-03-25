@@ -24,7 +24,7 @@ public interface UserService {
 
     /**
      * 회원 가입 전 등록된 정보 인지 확인
-     * @param username - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 ID 정보
+     * @param duplicateByIdInfoDTO - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 입력 정보 DTO
      * @return CustomUserDetails - 해당 회원의 정보 반환
      * @see ""
      */
@@ -33,7 +33,7 @@ public interface UserService {
 
     /**
      * 회원 가입 전 등록된 정보 인지 확인
-     * @param nickname - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 별명
+     * @param duplicateByIdInfoDTO - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 입력 정보 DTO
      * @return CustomUserDetails - 해당 회원의 정보 반환
      * @see ""
      */
@@ -42,7 +42,7 @@ public interface UserService {
 
     /**
      * 회원 가입 전 등록된 정보 인지 확인
-     * @param userEmail - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 Email
+     * @param duplicateByIdInfoDTO - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 입력 정보 DTO
      * @return CustomUserDetails - 해당 회원의 정보 반환
      * @see ""
      */
@@ -51,7 +51,7 @@ public interface UserService {
 
     /**
      * 회원 가입 전 등록된 정보 인지 확인
-     * @param phoneNumber - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 핸드폰 번호
+     * @param duplicateByIdInfoDTO - 회원 가입 전 등록 되어 있는 정보 인지 확인을 위한 이용자 입력 정보 DTO
      * @return CustomUserDetails - 해당 회원의 정보 반환
      * @see ""
      */
