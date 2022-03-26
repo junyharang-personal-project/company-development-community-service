@@ -4,8 +4,6 @@ import com.devcommunity.junyharang.common.constant.DefaultResponse;
 import com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO;
 import com.devcommunity.junyharang.model.vo.member.CustomUserDetails;
 
-import java.util.Optional;
-
 /**
  * 회원 가입 관련 비즈니스 로직
  * <pre>

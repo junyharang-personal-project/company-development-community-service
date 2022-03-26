@@ -21,20 +21,18 @@ Juny Company라는 가상의 회사 내에서 개발자 직원들이 이용할 �
 
 ## Project Code 정리
 
-<br>
+<br><br><br>
 
-<br><br>
-
-### 🗂 목차
+###🗂 목차
 
 ---
 
-#### ⚙️ 환경 구성
+####⚙️ 환경 구성
 
 **●[\[BackEnd\]\[Maven-PJ\] 개발자 커뮤니티 서비스 - 환경 구성](https://junyharang.tistory.com/209)**
 <br><br>
 
-#### ✍️ 게시판(Board) - CRUD
+####✍️ 게시판(Board) - CRUD
 
 **●[\[BackEnd\]\[Maven-PJ\] 개발자 커뮤니티 서비스 - 게시판 만들기 : 글 등록(작성) / 수정](https://junyharang.tistory.com/210)**
 <br>
@@ -54,16 +52,18 @@ Juny Company라는 가상의 회사 내에서 개발자 직원들이 이용할 �
 **●[\[BackEnd\]\[Maven-PJ\] 개발자 커뮤니티 서비스 - 게시판 : 답변 삭제](https://junyharang.tistory.com/245)**
 <br><br>
 
-#### 👩‍❤️‍👨 회원 관리(User Management)
+####👨‍👩‍👧‍👦 회원 관련(User Management)
+
+**●[\[BackEnd\]\[Maven-PJ\] 사내 개발자 커뮤니티 서비스 - 회원 관련 : 회원 가입](https://junyharang.tistory.com/255)**
 
 <br><br>
 
-#### - 부 록 -
+####📚부 록
 
 **●[\[BackEnd\]\[Maven-PJ\]개발자 커뮤니티 서비스 - 게시판 만들기 : Paging처리](https://junyharang.tistory.com/211)**
 <br><br>
 
-#### - 내가 만난 Exception -
+####🤔 내가 만난 Exception
 
 **●[\[Exception 정리\] org.apache.ibatis.binding.BindingException: Invalid bound statement (not found)](https://junyharang.tistory.com/213)**
 <br>
@@ -73,4 +73,4 @@ Juny Company라는 가상의 회사 내에서 개발자 직원들이 이용할 �
 
 ## ⏩ Client(FrontEnd) 이야기
 
-[gitHub 주소](https://github.com/junyharang-personal-project/development-community-service-client)
+[🧑🏻‍💻 Git Hub 주소](https://github.com/junyharang-personal-project/development-community-service-client)
