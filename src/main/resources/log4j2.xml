@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="layoutPattern">
+            %d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %highlight{${LOG_LEVEL_PATTERN:-%5p}}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue} %style{}{magenta} [%M] %style{%40C}{cyan} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%xEx}
+        </Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false" pattern="${layoutPattern}" />
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.devcommunity.nabong" level="INFO" additivity="false">
+            <AppenderRef ref="STDOUT" />
+        </Logger>
+        <Logger name="org.springframework" level="INFO" additivity="false">
+            <AppenderRef ref="STDOUT" />
+        </Logger>
+        <Logger name="jdbc.sqlonly" level="INFO" additivity="false">
+            <AppenderRef ref="STDOUT" />
+        </Logger>
+        <Logger name="jdbc.sqltiming" level="OFF"/>
+        <Logger name="jdbc.audit" level="OFF"/>
+        <Logger name="jdbc.resultset" level="OFF"/>
+        <Logger name="jdbc.resultsettable" level="OFF"/>
+        <Logger name="jdbc.connection" level="OFF"/>
+    </Loggers>
+</Configuration>
