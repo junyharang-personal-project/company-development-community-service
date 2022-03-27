@@ -3,7 +3,10 @@ package com.devcommunity.junyharang.controller.member;
 import com.devcommunity.junyharang.common.constant.DefaultResponse;
 import com.devcommunity.junyharang.common.constant.ServiceURIMng;
 import com.devcommunity.junyharang.common.constant.SwaggerApiInfo;
-import com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO;
+import com.devcommunity.junyharang.model.dto.user.DuplicateByUserEmailDTO;
+import com.devcommunity.junyharang.model.dto.user.DuplicateByUserIDDTO;
+import com.devcommunity.junyharang.model.dto.user.DuplicateByUserNickNameDTO;
+import com.devcommunity.junyharang.model.dto.user.DuplicateByUserPhoneNumberDTO;
 import com.devcommunity.junyharang.model.vo.member.CustomUserDetails;
 import com.devcommunity.junyharang.service.user.UserService;
 import io.swagger.annotations.*;
@@ -20,10 +23,11 @@ import javax.validation.Valid;
  * <pre>
  * <b>History:</b>
  *    주니하랑, 1.0.0, 2022.03.24 최초 작성
+ *    주니하랑, 1.0.1, 2022.03.27 Validation 기능 구현을 위한 중복 확인 Method 별 매개 변수 DTO 재 정의
  * </pre>
  *
  * @author 주니하랑
- * @version 1.0.0, 2022.03.24 최초 작성
+ * @version 1.0.1, 2022.03.27 Validation 기능 구현을 위한 중복 확인 Method 별 매개 변수 DTO 재 정의
  * @See ""
  * @see <a href=""></a>
  */
@@ -43,12 +47,12 @@ import javax.validation.Valid;
     })
 
     @ResponseBody
-    @PostMapping("/duplicate/userid") public DefaultResponse duplicateUserID(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO) {
+    @PostMapping("/duplicate/userid") public DefaultResponse duplicateUserID(@Valid @RequestBody DuplicateByUserIDDTO duplicateByUserIDDTO) {
 
-        log.info("UserController의 duplicateUserID(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO)가 호출 되었습니다! Client로 부터 전달된 값 확인 : " + duplicateByIdInfoDTO.toString());
+        log.info("UserController의 duplicateUserID(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO)가 호출 되었습니다! Client로 부터 전달된 값 확인 : " + duplicateByUserIDDTO.toString());
         log.info("userService.duplicateUserID(duplicateByIdInfoDTO)를 호출하여 비즈니스 로직을 처리하겠습니다!");
 
-        return userService.duplicateUserID(duplicateByIdInfoDTO);
+        return userService.duplicateUserID(duplicateByUserIDDTO);
 
     } // duplicateId(@RequestBody String username) 끝
 
@@ -61,12 +65,12 @@ import javax.validation.Valid;
     })
 
     @ResponseBody
-    @PostMapping("/duplicate/nickname") public DefaultResponse duplicateUserNickName(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO) {
+    @PostMapping("/duplicate/nickname") public DefaultResponse duplicateUserNickName(@Valid @RequestBody DuplicateByUserNickNameDTO duplicateByUserNickNameDTO) {
 
-        log.info("UserController의 duplicateUserNickName(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO)가 호출 되었습니다! Client로 부터 전달된 값 확인 : " + duplicateByIdInfoDTO.toString());
+        log.info("UserController의 duplicateUserNickName(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO)가 호출 되었습니다! Client로 부터 전달된 값 확인 : " + duplicateByUserNickNameDTO.toString());
         log.info("userService.duplicateUserNickName(duplicateByIdInfoDTO)를 호출하여 비즈니스 로직을 처리하겠습니다!");
 
-        return userService.duplicateUserNickName(duplicateByIdInfoDTO);
+        return userService.duplicateUserNickName(duplicateByUserNickNameDTO);
 
     } // duplicateId(@RequestBody String username) 끝
 
@@ -79,12 +83,12 @@ import javax.validation.Valid;
     })
 
     @ResponseBody
-    @PostMapping("/duplicate/email") public DefaultResponse duplicateUserEmail(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO) {
+    @PostMapping("/duplicate/email") public DefaultResponse duplicateUserEmail(@Valid @RequestBody DuplicateByUserEmailDTO duplicateByUserEmailDTO) {
 
-        log.info("UserController의 duplicateUserEmail(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO)가 호출 되었습니다! Client로 부터 전달된 값 확인 : " + duplicateByIdInfoDTO.toString());
+        log.info("UserController의 duplicateUserEmail(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO)가 호출 되었습니다! Client로 부터 전달된 값 확인 : " + duplicateByUserEmailDTO.toString());
         log.info("userService.duplicateUserEmail(duplicateByIdInfoDTO)를 호출하여 비즈니스 로직을 처리하겠습니다!");
 
-        return userService.duplicateUserEmail(duplicateByIdInfoDTO);
+        return userService.duplicateUserEmail(duplicateByUserEmailDTO);
 
     } // duplicateId(@RequestBody String username) 끝
 
@@ -97,12 +101,12 @@ import javax.validation.Valid;
     })
 
     @ResponseBody
-    @PostMapping("/duplicate/phone-number") public DefaultResponse duplicateUserPhoneNumber(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO) {
+    @PostMapping("/duplicate/phone-number") public DefaultResponse duplicateUserPhoneNumber(@Valid @RequestBody DuplicateByUserPhoneNumberDTO duplicateByUserPhoneNumberDTO) {
 
-        log.info("UserController의 duplicateUserPhoneNumber(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO)가 호출 되었습니다! Client로 부터 전달된 값 확인 : " + duplicateByIdInfoDTO.toString());
+        log.info("UserController의 duplicateUserPhoneNumber(@RequestBody DuplicateByIdInfoDTO duplicateByIdInfoDTO)가 호출 되었습니다! Client로 부터 전달된 값 확인 : " + duplicateByUserPhoneNumberDTO.toString());
         log.info("userService.duplicateUserPhoneNumber(duplicateByIdInfoDTO)를 호출하여 비즈니스 로직을 처리하겠습니다!");
 
-        return userService.duplicateUserPhoneNumber(duplicateByIdInfoDTO);
+        return userService.duplicateUserPhoneNumber(duplicateByUserPhoneNumberDTO);
 
     } // duplicateId(@RequestBody String username) 끝
 

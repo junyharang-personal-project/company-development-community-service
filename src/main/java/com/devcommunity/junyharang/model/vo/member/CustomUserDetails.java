@@ -1,9 +1,16 @@
 package com.devcommunity.junyharang.model.vo.member;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -12,26 +19,49 @@ import java.util.Collection;
  * <pre>
  * <b>History:</b>
  *    주니하랑, 1.0.0, 2022.03.24 최초 작성
+ *    주니하랑, 1.0.1, 2022.03.27 Validation 위한 내용 추가
  * </pre>
  *
  * @author 주니하랑
- * @version 1.0.0, 2022.03.24 최초 작성
+ * @version 주니하랑, 1.0.1, 2022.03.27 Validation 위한 내용 추가
  * @See ""
  * @see <a href=""></a>
  */
 
+@Getter @Setter @ToString
 public class CustomUserDetails implements UserDetails {
 
-    private int userId;                 // 회원 고유 번호(PK)
-    private String username;            // 회원 ID
-    private String password;            // 회원 비밀번호
-    private String nickname;            // 회원 별명
-    private String userEmail;           // 회원 Eamil 주소
-    private String userPhone;           // 회원 핸드폰 번호
-    private String teamName;            // 소속팀 이름
-    private String userKind;            // 회원 구분
-    private boolean enable;             // 회원 상태
-    private String authority;           // 회원 권한
+    private int userId;                                                 // 회원 고유 번호(PK)
+
+    @NotBlank                                                                               // 공백이 아닌 문자 하나 이상 포함 및 Null이 아닌지 확인
+    @Size(min = 1, max = 30)                                                                // 문자열 길이가 1 ~ 30사이
+    @Pattern(regexp = "^[0-9a-zA-Z]$")                                                      // 영(대,소)문자, 숫자만 사용 가능 패턴 허용
+    private String username;                                            // 회원 ID
+
+    @NotBlank
+    @Size(min = 1, max = 100)
+    @Pattern(regexp = "^.*(?=^.{8,15}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$")        // 숫자, 문자, 특수문자 포함 8 ~ 15자리 비밀번호 패턴 허용
+    private String password;                                            // 회원 비밀번호
+
+    @NotBlank
+    @Size(min = 1, max = 30)
+    @Pattern(regexp = "^[ㄱ-ㅎㅏ-ㅣ-가-힣]+[0-9a-zA-Z]+$")                                      // 한글과 숫자, 영(대,소)문자만 사용 가능 패턴 허용
+    private String nickname;                                            // 회원 별명
+
+    @NotBlank
+    @Email                                                                                  // Email 형식에 맞게 입력 되는지 확인
+    @Size(min = 1, max = 25)
+    @Pattern(regexp = "^[0-9a-zA-Z]+@[0-9a-zA-Z]+\\.([a-z]+)*$")                            // Email 형식에 맞는 (xxx@xx.xx) 정규식 패턴만 허용
+    private String userEmail;                                           // 회원 Eamil 주소
+
+    @NotBlank
+    @Size(min = 1, max = 15)
+    @Pattern(regexp = "^01(?:0|1|[6-9])?(\\d{3}|\\d{4})?(\\d{4})$")                        // 핸드폰 번호 Pattern
+    private String userPhone;                                           // 회원 핸드폰 번호
+//  private String teamName;                                            // 소속팀 이름
+//  private String userKind;                                            // 회원 구분
+    private boolean enable;                                             // 회원 상태
+    private String authority;                                           // 회원 권한
 
 
     @Override
@@ -64,21 +94,9 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     @Override
     public String getUsername() {
         return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @Override
@@ -86,64 +104,8 @@ public class CustomUserDetails implements UserDetails {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public String getUserPhone() {
-        return userPhone;
-    }
-
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
-    }
-
-    public String getTeamName() {
-        return teamName;
-    }
-
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
-    public String getUserKind() {
-        return userKind;
-    }
-
-    public void setUserKind(String userKind) {
-        this.userKind = userKind;
-    }
-
-    public boolean isEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
-
-    public String getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(String authority) {
-        this.authority = authority;
-    }
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
 } // class 끝

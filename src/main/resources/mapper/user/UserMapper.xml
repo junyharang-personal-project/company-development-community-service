@@ -3,8 +3,8 @@
 <mapper namespace="com.devcommunity.junyharang.mapper.user.UserMapper">
 
     <!-- 기 등록된 회원 정보가 있는지 확인 ID -->
-    <select id="findByUserID" parameterType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO"
-            resultType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO">
+    <select id="findByUserID" parameterType="com.devcommunity.junyharang.model.dto.user.DuplicateByUserIDDTO"
+            resultType="com.devcommunity.junyharang.model.dto.user.DuplicateByUserIDDTO">
 
         select username
         from user
@@ -12,8 +12,8 @@
     </select>
 
     <!-- 기 등록된 회원 정보가 있는지 확인 별명 -->
-    <select id="findByUserNickName" parameterType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO"
-            resultType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO">
+    <select id="findByUserNickName" parameterType="com.devcommunity.junyharang.model.dto.user.DuplicateByUserNickNameDTO"
+            resultType="com.devcommunity.junyharang.model.dto.user.DuplicateByUserNickNameDTO">
 
         select nickname
         from user
@@ -21,8 +21,8 @@
     </select>
 
     <!-- 기 등록된 회원 정보가 있는지 확인 Email -->
-    <select id="findByUserEmail" parameterType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO"
-            resultType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO">
+    <select id="findByUserEmail" parameterType="com.devcommunity.junyharang.model.dto.user.DuplicateByUserEmailDTO"
+            resultType="com.devcommunity.junyharang.model.dto.user.DuplicateByUserEmailDTO">
 
         select userEmail
         from user
@@ -30,8 +30,8 @@
     </select>
 
     <!-- 기 등록된 회원 정보가 있는지 확인 핸드폰 번호 -->
-    <select id="findByUserPhoneNumber" parameterType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO"
-            resultType="com.devcommunity.junyharang.model.dto.user.DuplicateByIdInfoDTO">
+    <select id="findByUserPhoneNumber" parameterType="com.devcommunity.junyharang.model.dto.user.DuplicateByUserPhoneNumberDTO"
+            resultType="com.devcommunity.junyharang.model.dto.user.DuplicateByUserPhoneNumberDTO">
 
         select userPhone
         from user
