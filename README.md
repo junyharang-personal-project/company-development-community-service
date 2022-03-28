@@ -61,7 +61,11 @@ Juny Company라는 가상의 회사 내에서 개발자 직원들이 이용할 �
 #### 📚부 록
 
 **●[\[BackEnd\]\[Maven-PJ\]개발자 커뮤니티 서비스 - 게시판 만들기 : Paging처리](https://junyharang.tistory.com/211)**
+<br>
+**●[\[Spring\] \@Valid를 이용한 \@RequestBody 검증 / Exception Handling / 정규 표현식](https://junyharang.tistory.com/257)**
 <br><br>
+
+
 
 #### 🤔 내가 만난 Exception
 

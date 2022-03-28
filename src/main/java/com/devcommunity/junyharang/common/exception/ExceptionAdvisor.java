@@ -9,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 유효성 검사 관련 Exception 처리 Class
@@ -24,7 +25,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  */
 
 @Slf4j
-@ControllerAdvice public class ExceptionAdvisor {
+@ControllerAdvice       // 전역 설정을 위한 Annotaion
+@RestController
+public class ExceptionAdvisor {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<DefaultResponse<String>> processValidationException(MethodArgumentNotValidException exception) {
