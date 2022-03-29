@@ -12,6 +12,19 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * JWT 검증 Filter Class
+ * <pre>
+ * <b>History:</b>
+ *    주니하랑, 1.0.0, 2022.03.29 최초 작성
+ * </pre>
+ *
+ * @author 주니하랑
+ * @version 1.0.0, 2022.03.29 최초 작성
+ * @See ""
+ * @see <a href=""></a>
+ */
+
 //GenericFilterBaen을 상속했을 경우 diFilter만 Overriding 해도 이용 가능
 // Spring Security에서 제공하는 다른 Filter는 Int, destory도 구현해야 함.
 public class JWTFilter extends GenericFilterBean {

@@ -1,14 +1,25 @@
 package com.devcommunity.junyharang.common.config.security.service;
 
 import com.devcommunity.junyharang.common.config.security.dao.UserDAO;
-import com.devcommunity.junyharang.common.config.security.dto.TokenDTO;
 import com.devcommunity.junyharang.model.vo.member.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+/**
+ * 회원 정보 관리를 위한 Class
+ * <pre>
+ * <b>History:</b>
+ *    주니하랑, 1.0.0, 2022.03.29 최초 작성
+ * </pre>
+ *
+ * @author 주니하랑
+ * @version 1.0.0, 2022.03.29 최초 작성
+ * @See ""
+ * @see <a href=""></a>
+ */
 
 @RequiredArgsConstructor @Slf4j
 @Service public class CustomUserDetailService implements UserDetailsService {
