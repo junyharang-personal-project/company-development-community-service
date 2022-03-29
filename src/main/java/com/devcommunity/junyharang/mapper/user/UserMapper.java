@@ -69,4 +69,13 @@ import java.util.Optional;
      */
 
     void signUp(CustomUserDetails customUserDetails);
+
+    /**
+     * Login 전 이용자가 입력한 ID 기반 회원 정보를 가져오기 위한 추상 Method
+     * @param username - 로그인 시 이용자가 입력한 ID
+     * @return CostomUserDetails
+     * @see ""
+     */
+
+    CustomUserDetails getUserByID(String username);
 } // interface 끝

@@ -35,27 +35,26 @@ public class CustomUserDetails implements UserDetails {
 
     @NotBlank                                                                               // 공백이 아닌 문자 하나 이상 포함 및 Null이 아닌지 확인
     @Size(min = 1, max = 30)                                                                // 문자열 길이가 1 ~ 30사이
-    @Pattern(regexp = "^[0-9a-zA-Z]$")                                                      // 영(대,소)문자, 숫자만 사용 가능 패턴 허용
+    @Pattern(regexp = "^[0-9a-zA-Z]+$")                                                      // 영(대,소)문자, 숫자만 사용 가능 패턴 허용
     private String username;                                            // 회원 ID
 
     @NotBlank
-    @Size(min = 1, max = 100)
-    @Pattern(regexp = "^.*(?=^.{8,15}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$")        // 숫자, 문자, 특수문자 포함 8 ~ 15자리 비밀번호 패턴 허용
+    @Pattern(regexp = "^[A-Za-z\\d$@$!%*?&]{8,15}$")        // 숫자, 문자, 특수문자 포함 8 ~ 15자리 비밀번호 패턴 허용
     private String password;                                            // 회원 비밀번호
 
     @NotBlank
     @Size(min = 1, max = 30)
-    @Pattern(regexp = "^[ㄱ-ㅎㅏ-ㅣ-가-힣]+[0-9a-zA-Z]+$")                                      // 한글과 숫자, 영(대,소)문자만 사용 가능 패턴 허용
+    @Pattern(regexp = "^[0-9a-zA-Zㄱ-ㅎㅏ-ㅣ-가-힣]+$")                                      // 한글과 숫자, 영(대,소)문자만 사용 가능 패턴 허용
     private String nickname;                                            // 회원 별명
 
     @NotBlank
     @Email                                                                                  // Email 형식에 맞게 입력 되는지 확인
-    @Size(min = 1, max = 25)
+    @Size(min = 1, max = 30)
     @Pattern(regexp = "^[0-9a-zA-Z]+@[0-9a-zA-Z]+\\.([a-z]+)*$")                            // Email 형식에 맞는 (xxx@xx.xx) 정규식 패턴만 허용
     private String userEmail;                                           // 회원 Eamil 주소
 
     @NotBlank
-    @Size(min = 1, max = 15)
+    @Size(min = 10, max = 11)
     @Pattern(regexp = "^01(?:0|1|[6-9])?(\\d{3}|\\d{4})?(\\d{4})$")                        // 핸드폰 번호 Pattern
     private String userPhone;                                           // 회원 핸드폰 번호
 //  private String teamName;                                            // 소속팀 이름
