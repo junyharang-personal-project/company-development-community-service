@@ -66,7 +66,7 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {        // 이용자 권한 목록 반환 Method
 
-        ArrayList<GrantedAuthority> auth = new ArrayList<>();
+        Collection<GrantedAuthority> auth = new ArrayList<>();
 
         auth.add(new SimpleGrantedAuthority(authority));
 

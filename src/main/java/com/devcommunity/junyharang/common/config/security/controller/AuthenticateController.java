@@ -5,7 +5,9 @@ import com.devcommunity.junyharang.common.config.security.common.jwt.TokenProvid
 import com.devcommunity.junyharang.common.config.security.dao.UserDAO;
 import com.devcommunity.junyharang.common.config.security.dto.request.SignInRequestDTO;
 import com.devcommunity.junyharang.common.config.security.dto.TokenDTO;
+import com.devcommunity.junyharang.common.config.security.service.AuthService;
 import com.devcommunity.junyharang.common.config.security.service.CustomUserDetailService;
+import com.devcommunity.junyharang.common.constant.DefaultResponse;
 import com.devcommunity.junyharang.common.constant.ServiceURIMng;
 import com.devcommunity.junyharang.common.constant.SwaggerApiInfo;
 import com.devcommunity.junyharang.model.vo.member.CustomUserDetails;
@@ -30,6 +32,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 /**
  * Login & Logout API
  * <pre>
@@ -47,53 +52,64 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(ServiceURIMng.USER)
 @RestController public class AuthenticateController {
 
-    private final CustomUserDetailService customUserDetailService;
+    private final AuthService authService;
 
-    private final PasswordEncoder passwordEncoder;
-    private final ObjectMapper objectMapper;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
-    private final UserDAO userDAO;
 
     private final TokenProvider tokenProvider;
 
-    @ApiOperation(value = SwaggerApiInfo.DUPLICATE_ID, notes = "Login 서비스 입니다.")
-    @ApiParam(name = "user", value = "Token과 회원 정보를 넘겨주어야 합니다.", readOnly = true)
+    @ApiOperation(value = SwaggerApiInfo.SIGN_IN, notes = "Login 서비스 입니다.")
+    @ApiParam(name = "signInRequestDTO", value = "로그인 하고자 하는 이용자 ID, Password", readOnly = true)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Login 성공"),
+            @ApiResponse(code = 401, message = "인증 필요"),
+            @ApiResponse(code = 403, message = "접근 권한 없음"),
             @ApiResponse(code = 500, message = "Server Internal Error")
     })
 
-    @PostMapping("/signin") public ResponseEntity<TokenDTO> signIn(@RequestBody SignInRequestDTO signInRequestDTO) {
+    @PostMapping("/signin") public ResponseEntity<DefaultResponse> signIn(@Valid @RequestBody SignInRequestDTO signInRequestDTO) {
 
         // TODO - 비즈니스 로직 Service로 변경 필요
 
         log.info("AuthenticateController의 signin(@RequestBody String user)이 호출 되었습니다!");
-        log.info("SignInRequestDTO의 UserName, password를 매개변수로 받아 UsernamePasswordAuthenticationToken을 만들겠습니다!");
+        log.info("authService.authorize(signInRequestDTO.getUsername(), signInRequestDTO.getPassword()) 호출 하며, 반환 값을 Response 하겠습니!");
 
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(signInRequestDTO.getUsername(), signInRequestDTO.getPassword());
-
-        log.info("authenticationToken을 이용하여 Authentication 객체를 만들 것인데, authenticate Method를 실행 할 때, loadUserByUsername Method가 호출 됩니다!");
-
-        Authentication authenticate = authenticationManagerBuilder.getObject().authenticate(authToken);
-
-        log.info("Authentication객체를 SecurityContext에 저장하겠습니다!");
-
-        SecurityContextHolder.getContext().setAuthentication(authenticate);
-
-        log.info("Authentication 객체로 createToken Method 이용 JWT 생성 하겠습니다!");
-
-        String jwt = tokenProvider.createToken(authenticate);
-
-        log.info("Client에게 jwt를 넘겨 주기 위해 Response Header에 넣어주겠습니다!");
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-
-        log.info("TokenDTO를 이용하여 Response Body에도 넣어 응답 해 주겠습니다!");
-
-        return new ResponseEntity<>(new TokenDTO(jwt), httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(authService.authorize(signInRequestDTO), HttpStatus.OK);
 
     } // signin(@RequestBody String user) 끝
+
+
+    @ApiOperation(value = SwaggerApiInfo.REPLACE_TOKEN, notes = "JWT 만료 시 재 발행 서비스 입니다.")
+    @ApiParam(name = "tokenDTO", value = "이용자가 가지고 있는 Token 정보를 요청으로 주어야 합니다.", readOnly = true)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "재 발행 성공"),
+            @ApiResponse(code = 500, message = "Server Internal Error")
+    })
+
+    @PostMapping("/reissue") public ResponseEntity<TokenDTO> jwtReissue(HttpServletRequest request) {
+
+        log.info("AuthenticateController의 jwtReissue(@Valid @RequestBody TokenDTO requestTokenDTO)가 호출 되었습니다!");
+
+        authService.jwtReissue(request)
+
+        return new ResponseEntity<>(authService.jwtReissue(requestTokenDTO.getAccessToken(), requestTokenDTO.getRefreshToken()), HttpStatus.OK);
+
+
+    }
+
+    @ApiOperation(value = SwaggerApiInfo.SIGN_OUT, notes = "Logout 서비스 입니다.")
+    @ApiParam(name = "user", value = "Token과 회원 정보를 넘겨주어야 합니다.", readOnly = true)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Logout 성공"),
+            @ApiResponse(code = 500, message = "Server Internal Error")
+    })
+
+    @RequestMapping("/logout") public boolean logout(@RequestBody String token) {
+
+        log.info("AuthenticateController의 logout(@RequestBody String token)이 호출 되었습니다!");
+
+        return true;
+
+    } // logout(@RequestBody String token) 끝
 
 } // class 끝

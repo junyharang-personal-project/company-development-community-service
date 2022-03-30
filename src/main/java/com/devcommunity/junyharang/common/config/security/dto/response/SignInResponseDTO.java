@@ -7,10 +7,21 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor @AllArgsConstructor
 public class SignInResponseDTO {
 
-    private String username;
+    private String accessToken;
+    private String refreshToken;
+
+    private int userId;
     private String nickname;
-    private String userEmail;
     private boolean enable;
     private String authority;
 
+    public SignInResponseDTO(String accessToken, String refreshToken, int userId, String authority, String nickname) {
+
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.userId = userId;
+        this.authority = authority;
+        this.nickname = nickname;
+
+    } // SignInResponseDTO(String accessToken, String refreshToken, int userId, String authority, String nickname) 끝
 } // class 끝

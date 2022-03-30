@@ -1,5 +1,8 @@
 package com.devcommunity.junyharang.common.config.security.common.jwt;
 
+import com.devcommunity.junyharang.common.config.security.dao.UserDAO;
+import com.devcommunity.junyharang.common.config.security.dto.TokenDTO;
+import com.devcommunity.junyharang.model.vo.member.CustomUserDetails;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -12,13 +15,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -35,43 +39,30 @@ import java.util.stream.Collectors;
  */
 
 @PropertySource("classpath:/application.yml") @Component    // Bean 생성
-public class TokenProvider implements InitializingBean {
+public class TokenProvider {
 
     private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
 
-    private static final String AUTHORITIES_KEY = "auth";
+    private static Key key;
 
-    private final String secret;
-    private final long tokenValidityInMilliSeconds;
+    // Refresh Token 유효 시간 2주(ms단위)
+    public static Long REFRESH_TOKEN_VALID_TIME = 14 * 1440 * 60 * 1000L;
 
-    private Key key;
+    // Access Token 유효 시간 15분
+    public static Long ACCESS_TOKEN_VALID_TIME = 15 * 60 * 1000L;
+
+    public static String ACCESS_TOKEN_NAME = "ACCESS TOKEN";
+    public static String REFRESH_TOKEN_NAME = "REFRESH TOKEN";
 
     // 생성자 Bean Injection
-    public TokenProvider(
-            @Value("${jwt.secret}") String secret,
-            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInMilliSeconds) {
+    public TokenProvider(@Value("${jwt.secret}") String secret){
 
         logger.info("InitializingBean를 구현한 TokenProvider의 생성자가 호출 되었습니다! 생성자를 통해 Bean이 Injection 됩니다!");
 
-        this.secret = secret;
-        this.tokenValidityInMilliSeconds = tokenValidityInMilliSeconds * 1000;
+        key = Keys.hmacShaKeyFor(secret.getBytes());
     }   // 생성자 끝
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-
-        logger.info("InitializingBean를 구현한 TokenProvider의 afterPropertiesSet()가 호출 되었습니다!");
-        logger.info("최초 [secret] 값은 base64로 Decoding 하겠습니다!");
-
-        byte[] keyBytes = Decoders.BASE64.decode(secret);
-
-        logger.info("Decoding한 값을 key 변수에 저장하겠습니다!");
-
-        this.key = Keys.hmacShaKeyFor(keyBytes);
-
-    } // afterPropertiesSet() 끝
-
-    public String createToken(Authentication authentication) {
+    public static String createAccessToken(int userId, String authority) {  // 이용자가 정상적으로 로그인을 시도하면 JWT(Access Token) 생성하는 Method
 
         // Authentication 인터페이스 : 인증 정보를 의미하는 인터페이스
         // getAuthorities() : 계정이 가지고 있는 권한 목록을 리턴
@@ -81,49 +72,35 @@ public class TokenProvider implements InitializingBean {
         // Collectors.joining() : StringBuilder를 생성한 후 계속 추가해준 후 반환
         // GrantedAuthority : ID, Password 기반 인증에서 UserDetailsService를 통해 조회
 
-        logger.info("InitializingBean를 구현한 TokenProvider의 createToken(Authentication authentication)가 호출 되었습니다!");
-        logger.info("Authentication 객체의 권한 정보를 이용하여 객체를 생성하는 Method 입니다.");
-
-        String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
-                // Stream 내 요소에 각각 GrantedAuthority의 getAuthority 실행
-                .collect(Collectors.joining(","));// StringBuilder 생성 뒤 , 를 추가하여 반환
-
-        long now = (new Date()).getTime();
-        Date validityTime = new Date(now + this.tokenValidityInMilliSeconds);
-
-        logger.info("JWT 만료 시간 설정을 하겠습니다! 이용자가 Login을 요청한 시각 기준 application.yml에 설정한 JWT 만료 시간을 더해 유효 시간이 설정 됩니다!");
+        Date now = new Date();
 
         return Jwts.builder()
-                .setSubject(authentication.getName())       // JWT 이름, 현재 Code에서는 UserID
-                .claim(AUTHORITIES_KEY, authorities)        // key : auto value : 권한들
-                .signWith(key, SignatureAlgorithm.HS256)    // Decoding한 값을 HS512 Hash Algorithm으로 암호화
-                .setExpiration(validityTime)                // JWT 만료 시간 설정
-                .compact();                                 // 압축하라고 명령
-    }   // createToken(Authentication authentication) 끝
+                // 회원 정보 저장
+                .claim("user_pk", userId)
+                .claim("user_role", authority)
+                .claim("token_name", ACCESS_TOKEN_NAME)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_VALID_TIME))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
 
-    public Authentication getAuthentication(String token) {
 
-        logger.info("InitializingBean를 구현한 TokenProvider의 getAuthentication(String token)가 호출 되었습니다!");
-        logger.info("Token 검증을 담당하고, String Type 매개변수 token이 사용 가능한 형태로 Parsing하기 위해 jwtsparse를 이용하는 Method 입니다.");
+    }   // createAccessToken(int userId, String authority) 끝
 
-        Claims claims = Jwts.parserBuilder()                //  jwtParserBuilder 인스턴스 생성
-                .setSigningKey(key)         //  암호화 된 Key 변수 설정
-                .build()                    //  Thread에 안전하게 반환하기 위해 호출
-                .parseClaimsJws(token)      // Token을 jws로 Parsing
-                .getBody();// Token에 저장되었던 DATA들이 담긴 claims를 가져온다.
+    public static String createRefreshToken(int userId, String authority) {     // // 이용자가 정상적으로 로그인을 시도하면 JWT(Refresh Token) 생성하는 Method
 
-        Collection<? extends GrantedAuthority> authorities = Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
-                .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        Date now = new Date();
 
-        logger.info("이용자의 권한을 이용하여 회원 객체를 생성 하겠습니다!");
+        return Jwts.builder()
+                .claim("user_pk", userId)
+                .claim("user_role", authority)
+                .claim("token_name", REFRESH_TOKEN_NAME)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + REFRESH_TOKEN_VALID_TIME))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
 
-        User principal = new User(claims.getSubject(), "", authorities);
-
-        logger.info("회원 객체, JWT, 권한들을 담은 Authentication 객체를 반환 하겠습니다!");
-
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
-
-    } // getAuthentication(String token) 끝
+    } // createRefreshToken(int userId, String authority) 끝
 
     public boolean validateToken(String token) {
 
@@ -140,6 +117,7 @@ public class TokenProvider implements InitializingBean {
                     .parseClaimsJws(token);
 
             logger.info("JWT Parsing 작업이 완료되어 'true'를 반환 하겠습니다!");
+
             return true;
 
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
@@ -173,4 +151,20 @@ public class TokenProvider implements InitializingBean {
         return false;
 
     } // validateToken(String token) 끝
+
+    public static Claims getClaims(String token) {      // JWT에서 Claim 추출 Method
+
+        try {
+            return Jwts.parserBuilder()                //  jwtParserBuilder 인스턴스 생성
+                    .setSigningKey(key)                //  암호화 된 Key 변수 설정
+                    .build()                           //  Thread에 안전하게 반환하기 위해 호출
+                    .parseClaimsJws(token)             // Token을 jws로 Parsing
+                    .getBody();                        // Token에 저장되었던 DATA들이 담긴 claims를 가져온다.
+        } catch (ExpiredJwtException e) {
+
+            e.getStackTrace();
+
+            return e.getClaims();
+        } // try-catch 끝
+    } // getClaims(String token) 끝
 } // class 끝

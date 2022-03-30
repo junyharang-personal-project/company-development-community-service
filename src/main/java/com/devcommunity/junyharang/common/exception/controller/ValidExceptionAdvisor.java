@@ -1,4 +1,4 @@
-package com.devcommunity.junyharang.common.exception;
+package com.devcommunity.junyharang.common.exception.controller;
 
 import com.devcommunity.junyharang.common.constant.DefaultResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @ControllerAdvice       // 전역 설정을 위한 Annotaion
 @RestController
-public class ExceptionAdvisor {
+public class ValidExceptionAdvisor {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<DefaultResponse<String>> processValidationException(MethodArgumentNotValidException exception) {

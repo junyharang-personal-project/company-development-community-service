@@ -2,6 +2,8 @@ package com.devcommunity.junyharang.common.config.security.common.jwt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -21,8 +23,7 @@ import java.io.IOException;
  *
  * @author 주니하랑
  * @version 1.0.0, 2022.03.29 최초 작성
- * @See ""
- * @see <a href=""></a>
+ * @see <a href="https://wnwngus.tistory.com/65"></a>
  */
 
 //GenericFilterBaen을 상속했을 경우 diFilter만 Overriding 해도 이용 가능
@@ -58,6 +59,24 @@ public class JWTFilter extends GenericFilterBean {
 
         logger.info("JWT 값 : " + jwt);
 
+        String requestURI = httpServletRequest.getRequestURI();
+
+        if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+
+            Authentication authentication = tokenProvider.getAuthentication(jwt);
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            logger.info("Security Context에 '{}' 인증 정보 저장 완료 하였습니다! uri: {}", authentication.getName(), requestURI);
+
+        } else {
+
+            logger.info("유효한 JWT가 없습니다! uri: {}", requestURI);
+
+        } // if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) - else 끝
+
+        filterChain.doFilter(servletRequest, servletResponse);
+
     } // doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) 끝
 
     private String resolveToken(HttpServletRequest httpServletRequest) {
@@ -76,7 +95,7 @@ public class JWTFilter extends GenericFilterBean {
             logger.info("해당 내용과 일치합니다! ");
 
             logger.info("Bearer 를 제외한 나머지 문자열만 반환 할 수 있게 문자열을 자르고, 결과를 반환 하겠습니다!");
-            return bearerToken.substring(6);
+            return bearerToken.substring(7);
         } // if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) 끝
 
         logger.info("로그인 요청 Header에 `AUTHORIZATION_HEADER`가 있는지와 해당 문자열이 `Bearer `로 시작되는 것이 없습니다! null 반환 하겠습니다!");
