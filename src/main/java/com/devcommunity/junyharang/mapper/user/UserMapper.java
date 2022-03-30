@@ -77,5 +77,5 @@ import java.util.Optional;
      * @see ""
      */
 
-    CustomUserDetails getUserByID(String username);
+    Optional<CustomUserDetails> getUserByID(String username);
 } // interface 끝

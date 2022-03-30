@@ -65,8 +65,8 @@
 
     <!-- 이용자가 로그인 시 입력한 ID를 통해 해당 회원 정보를 검색 -->
     <select id="getUserByID" parameterType="String"
-            resultType="com.devcommunity.junyharang.common.config.security.dto.response.SignInResponseDTO">
-        select username, nickname, userEmail, enable, authority
+            resultType="com.devcommunity.junyharang.model.vo.member.CustomUserDetails">
+        select *
         from user
         where username = #{username}
     </select>

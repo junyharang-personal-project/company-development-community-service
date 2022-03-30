@@ -14,6 +14,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,79 +69,30 @@ import org.springframework.web.bind.annotation.RestController;
         // TODO - 비즈니스 로직 Service로 변경 필요
 
         log.info("AuthenticateController의 signin(@RequestBody String user)이 호출 되었습니다!");
-        log.info("customUserDetailService.loadUserByUsername(user)를 호출하겠습니다!");
+        log.info("SignInRequestDTO의 UserName, password를 매개변수로 받아 UsernamePasswordAuthenticationToken을 만들겠습니다!");
 
-        log.info("JSON 형태로 들어온 이용자의 ID와 비밀번호 정보를 Parsing 하겠습니다.");
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(signInRequestDTO.getUsername(), signInRequestDTO.getPassword());
 
-//        log.info("JSON 형태로 들어온 이용자의 ID를 문자열 객체 Type \"username\"에 저장 하겠습니다!");
-//        String username = signInRequestDTO.getUsername();
-//
-//        log.info("username : " + username);
-//
-        log.info("JSON 형태로 들어온 이용자의 비밀번호를 문자열 객체 Type \"password\"에 저장 하겠습니다!");
-        String password = signInRequestDTO.getPassword();
-//
-//        log.info("password : " + password);
+        log.info("authenticationToken을 이용하여 Authentication 객체를 만들 것인데, authenticate Method를 실행 할 때, loadUserByUsername Method가 호출 됩니다!");
 
-//        JSONParser jsonParser = new JSONParser();
-//        JSONObject parse = null;
+        Authentication authenticate = authenticationManagerBuilder.getObject().authenticate(authToken);
 
-        try {
-//            parse = (JSONObject) jsonParser.parse(user);
+        log.info("Authentication객체를 SecurityContext에 저장하겠습니다!");
 
-            log.info("JSON 형태로 들어온 이용자의 ID를 문자열 객체 Type \"username\"에 저장 하겠습니다!");
-       //     String username = (String) parse.get("username");
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
 
-            log.info("JSON 형태로 들어온 이용자의 비밀번호를 문자열 객체 Type \"password\"에 저장 하겠습니다!");
-//            String password = (String) parse.get("password");
+        log.info("Authentication 객체로 createToken Method 이용 JWT 생성 하겠습니다!");
 
-            CustomUserDetails userInfo = customUserDetailService.loadUserByUsername(signInRequestDTO.getUsername());
+        String jwt = tokenProvider.createToken(authenticate);
 
-            log.info("HttpHeader에 JSON 형태로 응답값 전달을 위해 반환 작업을 하겠습니다!");
-            String convertToJSON = objectMapper.writeValueAsString(userInfo);
+        log.info("Client에게 jwt를 넘겨 주기 위해 Response Header에 넣어주겠습니다!");
 
-            log.info("JSON으로 변환 된 값을 확인 하겠습니다! JSON 값 : " + convertToJSON);
-            log.info("로그인 이용자가 입력한 ID가 DB에 존재하고, 비밀번호가 일치할 경우에 대한 Logic 처리를 시작합니다!");
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
-            if (userInfo != null) {
-                log.info("DB에서 로그인 요청 이용자가 입력한 ID에 해당하는 회원 정보를 찾았습니다!");
+        log.info("TokenDTO를 이용하여 Response Body에도 넣어 응답 해 주겠습니다!");
 
-                String findDBPWD = userInfo.getPassword();
-
-                log.info("Hashing 암호화로 암호화된 비밀번호와 이용자가 입력한 비밀번호가 일치하는지 확인 하겠습니다!");
-                if (passwordEncoder.matches(password, findDBPWD)) {
-
-                    log.info("입력한 비밀번호와 DB에 암호화된 비밀번호가 서로 일치합니다!");
-                    log.info("회원 ID, Password를 이용하여 authenticationToken 객체를 만들겠습니다!");
-
-                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(signInRequestDTO.getUsername(), password);
-
-                    // TODO - ??
-                    Authentication authenticate = authenticationManagerBuilder.getObject().authenticate(authToken);
-
-                    log.info("SecurityContext에 인증 정보를 저장 하겠습니다!");
-                    SecurityContextHolder.getContext().setAuthentication(authenticate);
-
-                    log.info("인증 정보를 기반으로 JWT를 생성하겠습니다!");
-                    String jwt = tokenProvider.createToken(authenticate);
-
-                    HttpHeaders httpHeaders = new HttpHeaders();
-                    httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "bearer " + jwt);
-                    httpHeaders.add("user", convertToJSON);
-
-                    return new ResponseEntity<>(new TokenDTO(jwt), httpHeaders, HttpStatus.OK);
-                } // if (passwordEncoder.matches(password, findDBPWD)) 끝
-            } // if (userInfo != null) 끝
-
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//            log.error("JSON 형태의 로그인 이용자 정보를 Parsing 하던 도 중 문제가 발생 하였습니다!");
-//            log.error(e.getMessage());
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return new ResponseEntity<>(new TokenDTO(jwt), httpHeaders, HttpStatus.OK);
 
     } // signin(@RequestBody String user) 끝
 

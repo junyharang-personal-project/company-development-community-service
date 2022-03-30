@@ -91,7 +91,7 @@ public class TokenProvider implements InitializingBean {
         long now = (new Date()).getTime();
         Date validityTime = new Date(now + this.tokenValidityInMilliSeconds);
 
-        logger.info("JWT 만료 시간 설정을 하겠습니다! 이용자가 Login을 요청한 시각 기준 application.yrml에 설정한 JWT 만료 시간을 더해 유효 시간이 설정 됩니다!");
+        logger.info("JWT 만료 시간 설정을 하겠습니다! 이용자가 Login을 요청한 시각 기준 application.yml에 설정한 JWT 만료 시간을 더해 유효 시간이 설정 됩니다!");
 
         return Jwts.builder()
                 .setSubject(authentication.getName())       // JWT 이름, 현재 Code에서는 UserID

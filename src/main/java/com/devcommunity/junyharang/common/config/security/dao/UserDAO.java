@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * 회원 관련 DAO
  * <pre>
@@ -34,12 +36,12 @@ public class UserDAO {
      * @return {@link CustomUserDetails}    DB에서 찾은 이용자 정보
      */
 
-    public CustomUserDetails getUserByID(String username) {
+    public Optional<CustomUserDetails> getUserByID(String username) {
 
         log.info("UserDAO의 getUserByID(String username)가 호출 되었습니다!");
         log.info("userMapper.getUserByID(username)을 전달하여 DB를 통해 회원 정보를 요청 하겠습니다!");
 
-        CustomUserDetails userByID = userMapper.getUserByID(username);
+        Optional<CustomUserDetails> userByID = userMapper.getUserByID(username);
 
         return userByID;
 
