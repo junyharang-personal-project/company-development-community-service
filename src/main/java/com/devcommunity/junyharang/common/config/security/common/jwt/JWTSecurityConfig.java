@@ -38,4 +38,3 @@ public class JWTSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
 
     } // configure(HttpSecurity http) 끝
 } // class 끝
-끝
