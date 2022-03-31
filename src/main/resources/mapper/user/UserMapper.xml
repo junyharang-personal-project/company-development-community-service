@@ -76,4 +76,12 @@
         set token = #{token}
         where username = #{username}
     </update>
+
+    <!-- Access Token 재 발급 시 회원 고유 번호를 통해 존재하는 회원인지 검색 -->
+    <select id="getUserByPK" parameterType="Integer"
+            resultType="com.devcommunity.junyharang.model.vo.member.CustomUserDetails">
+        select *
+        from user
+        where userId = #{userPk}
+    </select>
 </mapper>

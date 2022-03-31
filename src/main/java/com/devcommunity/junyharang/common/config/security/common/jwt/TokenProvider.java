@@ -16,10 +16,11 @@ import java.util.Date;
  * <pre>
  * <b>History:</b>
  *    주니하랑, 1.0.0, 2022.03.29 최초 작성
+ *    주니하랑, 1.1.0, 2022.03.31 JWT(Access Token, Refresh Token) 기능 재 구성
  * </pre>
  *
  * @author 주니하랑
- * @version 1.0.0, 2022.03.29 최초 작성
+ * @version 1.1.0, 2022.03.31 JWT(Access Token, Refresh Token) 기능 재 구성
  * @See ""
  * @see <a href=""></a>
  */

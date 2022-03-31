@@ -1,6 +1,5 @@
 package com.devcommunity.junyharang.common.config.security.service;
 
-import com.devcommunity.junyharang.common.config.security.dto.TokenDTO;
 import com.devcommunity.junyharang.common.config.security.dto.request.SignInRequestDTO;
 import com.devcommunity.junyharang.common.config.security.dto.response.SignInResponseDTO;
 import com.devcommunity.junyharang.common.constant.DefaultResponse;
@@ -12,10 +11,12 @@ import javax.servlet.http.HttpServletRequest;
  * <pre>
  * <b>History:</b>
  *    주니하랑, 1.0.0, 2022.03.30 최초 작성
+ *    주니하랑, 1.1.0, 2022.03.31 JWT(Access Token, Refresh Token) 기반 로그인 기능 재 구성
+ *    주니하랑, 1.1.1, 2022.03.31 Access Token 재 발급 기능 구현 완료
  * </pre>
  *
  * @author 주니하랑
- * @version 1.0.0, 2022.03.30 최초 작성
+ * @version 1.1.1, 2022.03.31 Access Token 재 발급 기능 구현 완료
  * @See ""
  * @see <a href=""></a>
  */
