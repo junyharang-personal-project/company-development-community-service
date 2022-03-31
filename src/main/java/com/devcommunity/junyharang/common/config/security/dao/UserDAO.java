@@ -52,17 +52,18 @@ public class UserDAO {
 
     /**
      * Login 시 이용자가 가진 고유 번호와 권한 기반으로 만들어진 Refresh Token DB 저장을 위한 추상 Method
-     * @param token - Refresh Token
+     * @param refreshToken - Refresh Token
+     * @param username - Login 요청 이용자 ID
     * @see ""
      */
 
-    public void setRefreshToken(String token, String username) {
+    public void setRefreshToken(String refreshToken, String username) {
 
         log.info("UserDAO의 getUserByID(String username)가 호출 되었습니다!");
         log.info("userMapper.setRefreshToken(token)을 전달하여 DB를 통해 Refresh Token을 저장 하겠습니다!");
 
-        userMapper.setRefreshToken(token, username);
-    }
+        userMapper.setRefreshToken(refreshToken, username);
+    } // setRefreshToken(String refreshToken, String username) 끝
 
     /**
      * Access Token 재 발급 시 회원 고유 번호를 통해 존재하는 회원인지 DB에서 검사하는 Method
@@ -78,4 +79,13 @@ public class UserDAO {
         return userMapper.getUserByPK(userPk);
 
     } // getUserByPK(Integer userPk) 끝
+
+    public void refreshTokenDelete(String refreshToken) {
+
+        log.info("UserDAO의 logout(String token)가 호출 되었습니다!");
+        log.info("userMapper.refreshTokenCheck(token) 전달 DB를 통해 유효한 Refresh Token 인지 검사 하겠습니다!");
+
+        userMapper.refreshTokenDelete(refreshToken);
+
+    }   // logout(String token) 끝
 } // class 끝

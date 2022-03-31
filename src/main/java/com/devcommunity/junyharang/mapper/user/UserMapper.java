@@ -84,11 +84,12 @@ import java.util.Optional;
 
     /**
      * Login 시 이용자가 가진 고유 번호와 권한 기반으로 만들어진 Refresh Token DB 저장을 위한 추상 Method
-     * @param token - Refresh Token
+     * @param refreshToken - Refresh Token
+     * @param username - Login 요청 이용자 ID
      * @see ""
      */
 
-    void setRefreshToken(String token, String username);
+    void setRefreshToken(String refreshToken, String username);
 
     /**
      * Access Token 재 발급 시 회원 고유 번호를 통해 존재하는 회원인지 DB에서 검사하는 Method
@@ -97,4 +98,12 @@ import java.util.Optional;
      */
 
     Optional<CustomUserDetails> getUserByPK(Integer userPk);
+
+    /**
+     * Logout 전 유효한 Refresh Token인지 확인하는 Method
+     * @param refreshToken - Logout 요청 회원 보유 Refresh Token
+     * @see ""
+     */
+
+    void refreshTokenDelete(String refreshToken);
 } // interface 끝

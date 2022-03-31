@@ -79,9 +79,9 @@ import java.util.stream.Collectors;
 
                     log.info("JWT(Access Token, Refresh Token)이 모두 생성되었으며, Refresh Token은 회원 Table에 저장해 두겠습니다!");
 
-                    userDAO.setRefreshToken(refreshToken, userInfoByID.get().getUsername());
+                    // Logout 기능 구현을 위해 Access Token, Refresh Token DB 저장
 
-//                    user.setRefreshToken(refreshToken);
+                    userDAO.setRefreshToken(refreshToken, userInfoByID.get().getUsername());
 
                     log.info("Login이 성공 하였습니다! 200 Code와 함께 \"성공\" 과 \"Sucess\"와 로그인 요청 이용자의 고유 번호, 회원 역할, Access Token, RefreshToken 반환 하겠습니다!");
 
@@ -185,6 +185,68 @@ import java.util.stream.Collectors;
 
     }   // jwtReissue(HttpServletRequest request) 끝
 
+    @Override
+    public DefaultResponse logout(HttpServletRequest request) {
+        log.info("AuthService를 구현한 AuthServiceImpl의 logout(HttpServletRequest request)가 동작 하였습니다!");
+        log.info("Logout 요청 이용자가 보낸 요청 Header에 \"Authorization\" 값을 jwt 변수에 담겠습니다!");
+
+        String jwt = request.getHeader("Authorization");
+
+        log.info("Request Header에 JWT가 담겨 있었는지 확인 하겠습니다!");
+
+        if (jwt == null) {
+
+            log.info("Request Header에 JWT가 담겨 있지 않았습니다!");
+
+            return DefaultResponse.response(HttpStatus.BAD_REQUEST.value(), "잘못 된 요청", "Bad Request");
+
+        } // if (jwt == null) 끝
+
+        log.info("Request Header에 JWT가 담겨 있으며, \"Bearer \" 문자를 제외한 값을 jwtToken 변수에 담겠습니다!");
+
+        String jwtToken = jwt.substring("Bearer ".length());
+
+        Claims claims = TokenProvider.getClaims(jwtToken);
+
+        if (claims == null) {
+
+            log.info("요청으로 전달 된 Refresh Token과 Server에 저장된 Refresh Token이 일치하지 않습니다!");
+
+            return DefaultResponse.response(HttpStatus.UNAUTHORIZED.value(), "토큰 불일치", "Token Inconsistency");
+
+        } // if (claims == null) 끝
+
+        String tokenName = claims.get("token_name", String.class);
+        String userRole = claims.get("user_role", String.class);
+
+        if (tokenName.equals(TokenProvider.REFRESH_TOKEN_NAME)) {
+
+            log.info("Refresh Token의 이름이 생성 당시 Refresh Token 이름과 일치 합니다!");
+
+            Integer userPk = claims.get("user_pk", Integer.class);
+
+            Boolean check = refreshTokenCheck(userPk, jwtToken);
+
+            if (check) {
+
+                log.info("요청으로 들어온 Refresh Token이 확인 되었습니다! DB에 저장된 Refresh Token을 제거 하겠습니다!");
+                log.info("Access Token은 이용 시간이 짧기 때문에 Refresh Token을 이용할 수 없게 만들어 Logout과 비슷한 효과를 주는 작업 입니다!");
+
+                userDAO.refreshTokenDelete(jwtToken);
+
+                return DefaultResponse.response(HttpStatus.OK.value(), "Logout 성공", "Logout Success");
+
+            } else {
+
+                return DefaultResponse.response(HttpStatus.UNAUTHORIZED.value(), "토큰 불일치", "Token Inconsistency");
+
+            } // if (check) - else 끝
+        }   // if (tokenName.equals(TokenProvider.REFRESH_TOKEN_NAME)) 끝
+
+        return DefaultResponse.response(HttpStatus.UNAUTHORIZED.value(), "토큰 불일치", "Token Inconsistency");
+
+    } // logout(HttpServletRequest request) 끝
+
     public Boolean refreshTokenCheck(Integer userPk, String refreshToken) {
 
         log.info("AuthService를 구현한 AuthServiceImpl의 refreshTokenCheck(Integer userPk, String jwtToken)가 동작 하였습니다!");
@@ -193,7 +255,7 @@ import java.util.stream.Collectors;
 
         return userInfo.map(user -> {
 
-            if (user.getToken().equals(refreshToken)) {
+            if (user.getRefreshToken().equals(refreshToken)) {
 
                 log.info("요청으로 들어온 Refresh Token과 DB에 저장되어 있는 Refresh Token이 일치 합니다!");
 
@@ -208,5 +270,4 @@ import java.util.stream.Collectors;
             } // if (user.getToken().equals(refreshToken)) - else 끝
         }).orElse(false);
     } // refreshTokenCheck(Integer userPk, String jwtToken) 끝
-
 } // class 끝

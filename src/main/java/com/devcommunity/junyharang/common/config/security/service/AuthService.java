@@ -40,4 +40,13 @@ public interface AuthService {
      */
 
     DefaultResponse jwtReissue(HttpServletRequest request);
+
+    /**
+     * Logout Method
+     * @param request - Logout 요청 이용자가 Logout을 위해 제출한 요청 객체
+     * @return DefaultResponse - Http Status Code 관련 반환 객체
+     * @see ""
+     */
+
+    DefaultResponse logout(HttpServletRequest request);
 } // interface 끝

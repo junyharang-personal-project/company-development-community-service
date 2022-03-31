@@ -73,15 +73,22 @@
     <!-- 이용자가 로그인 시 생성된 Refresh Token 저장 -->
     <update id="setRefreshToken" parameterType="String">
         update user
-        set token = #{token}
+        set refresh_token = #{refreshToken}
         where username = #{username}
     </update>
 
-    <!-- Access Token 재 발급 시 회원 고유 번호를 통해 존재하는 회원인지 검색 -->
+    <!-- Access Token 재 발급 & Logout 시 회원 고유 번호를 통해 존재하는 회원인지 검색 -->
     <select id="getUserByPK" parameterType="Integer"
             resultType="com.devcommunity.junyharang.model.vo.member.CustomUserDetails">
         select *
         from user
         where userId = #{userPk}
     </select>
+
+    <!-- Logout 시 요청으로 전달 된 Refresh Token이 DB에 저장된 Refresh Token과 일치하는지 확인하기 위해 검색 -->
+    <update id="refreshTokenDelete" parameterType="String">
+        update user
+        set refresh_token = null
+        where refresh_token = #{refreshToken}
+    </update>
 </mapper>

@@ -61,6 +61,7 @@ public class CustomUserDetails implements UserDetails {
 //  private String userKind;                                            // 회원 구분
     private boolean enable;                                             // 회원 상태
     private String authority;                                           // 회원 권한
+    private String refreshToken;                                               // Refresh Token 저장을 위한 Member 변수
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {        // 이용자 권한 목록 반환 Method
