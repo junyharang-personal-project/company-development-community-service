@@ -69,33 +69,31 @@ import javax.validation.Valid;
 
     @PostMapping("/signin") public ResponseEntity<DefaultResponse> signIn(@Valid @RequestBody SignInRequestDTO signInRequestDTO) {
 
-        // TODO - 비즈니스 로직 Service로 변경 필요
-
         log.info("AuthenticateController의 signin(@RequestBody String user)이 호출 되었습니다!");
         log.info("authService.authorize(signInRequestDTO.getUsername(), signInRequestDTO.getPassword()) 호출 하며, 반환 값을 Response 하겠습니!");
 
-        return new ResponseEntity<>(authService.authorize(signInRequestDTO), HttpStatus.OK);
+        return new ResponseEntity<>(authService.signIn(signInRequestDTO), HttpStatus.OK);
 
     } // signin(@RequestBody String user) 끝
 
 
-    @ApiOperation(value = SwaggerApiInfo.REPLACE_TOKEN, notes = "JWT 만료 시 재 발행 서비스 입니다.")
-    @ApiParam(name = "tokenDTO", value = "이용자가 가지고 있는 Token 정보를 요청으로 주어야 합니다.", readOnly = true)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "재 발행 성공"),
-            @ApiResponse(code = 500, message = "Server Internal Error")
-    })
-
-    @PostMapping("/reissue") public ResponseEntity<TokenDTO> jwtReissue(HttpServletRequest request) {
-
-        log.info("AuthenticateController의 jwtReissue(@Valid @RequestBody TokenDTO requestTokenDTO)가 호출 되었습니다!");
-
-        authService.jwtReissue(request)
-
-        return new ResponseEntity<>(authService.jwtReissue(requestTokenDTO.getAccessToken(), requestTokenDTO.getRefreshToken()), HttpStatus.OK);
-
-
-    }
+//    @ApiOperation(value = SwaggerApiInfo.REPLACE_TOKEN, notes = "JWT 만료 시 재 발행 서비스 입니다.")
+//    @ApiParam(name = "tokenDTO", value = "이용자가 가지고 있는 Token 정보를 요청으로 주어야 합니다.", readOnly = true)
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "재 발행 성공"),
+//            @ApiResponse(code = 500, message = "Server Internal Error")
+//    })
+//
+//    @PostMapping("/reissue") public ResponseEntity<TokenDTO> jwtReissue(HttpServletRequest request) {
+//
+//        log.info("AuthenticateController의 jwtReissue(@Valid @RequestBody TokenDTO requestTokenDTO)가 호출 되었습니다!");
+//
+//        authService.jwtReissue(request)
+//
+//        return new ResponseEntity<>(authService.jwtReissue(requestTokenDTO.getAccessToken(), requestTokenDTO.getRefreshToken()), HttpStatus.OK);
+//
+//
+//    }
 
     @ApiOperation(value = SwaggerApiInfo.SIGN_OUT, notes = "Logout 서비스 입니다.")
     @ApiParam(name = "user", value = "Token과 회원 정보를 넘겨주어야 합니다.", readOnly = true)

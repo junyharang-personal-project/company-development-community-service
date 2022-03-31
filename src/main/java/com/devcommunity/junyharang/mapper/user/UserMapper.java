@@ -78,4 +78,13 @@ import java.util.Optional;
      */
 
     Optional<CustomUserDetails> getUserByID(String username);
+
+
+    /**
+     * Login 시 이용자가 가진 고유 번호와 권한 기반으로 만들어진 Refresh Token DB 저장을 위한 추상 Method
+     * @param token - Refresh Token
+     * @see ""
+     */
+
+    void setRefreshToken(String token, String username);
 } // interface 끝

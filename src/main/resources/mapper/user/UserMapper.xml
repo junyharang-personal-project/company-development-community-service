@@ -62,7 +62,6 @@
         ]]>
     </insert>
 
-
     <!-- 이용자가 로그인 시 입력한 ID를 통해 해당 회원 정보를 검색 -->
     <select id="getUserByID" parameterType="String"
             resultType="com.devcommunity.junyharang.model.vo.member.CustomUserDetails">
@@ -70,4 +69,11 @@
         from user
         where username = #{username}
     </select>
+
+    <!-- 이용자가 로그인 시 생성된 Refresh Token 저장 -->
+    <update id="setRefreshToken" parameterType="String">
+        update user
+        set token = #{token}
+        where username = #{username}
+    </update>
 </mapper>

@@ -24,13 +24,12 @@ public interface AuthService {
 
     /**
      * Login 관련 Method
-     * @param username - 로그인 요청 이용자 ID
-     * @param password - 로그인 요청 이용자 비민번호
-     * @return TokenDTO - JWT(Access Token, Refresh Token) 반환
-     * @see "https://wnwngus.tistory.com/65"
+     * @param signInRequestDTO - 로그인 요청 이용자 ID와 Password가 들어 있는 객체
+     * @return DefaultResponse<SignInResponseDTO> - Http Status 관련 응답과 로그인 시 반환될 내용을 가진 객체
+     * @see ""
      */
 
-    DefaultResponse<SignInResponseDTO> authorize(SignInRequestDTO signInRequestDTO);
+    DefaultResponse<SignInResponseDTO> signIn(SignInRequestDTO signInRequestDTO);
 
     /**
      * JWT 재 발급 관련 Method

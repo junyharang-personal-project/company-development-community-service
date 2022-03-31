@@ -47,4 +47,11 @@ public class UserDAO {
 
     } // getUserByID(String username) 끝
 
+    public void setRefreshToken(String token, String username) {
+
+        log.info("UserDAO의 getUserByID(String username)가 호출 되었습니다!");
+        log.info("userMapper.setRefreshToken(token)을 전달하여 DB를 통해 Refresh Token을 저장 하겠습니다!");
+
+        userMapper.setRefreshToken(token, username);
+    }
 } // class 끝
